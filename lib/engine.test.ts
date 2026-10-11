@@ -5,7 +5,9 @@ import {
   getCurrentBalance,
   getForecast,
   getHealthScore,
+  getMetrics,
   getRiskScore,
+  getRunwayAdvice,
   getSafeToSpendToday,
   simulateDecision,
 } from "./engine";
@@ -85,5 +87,17 @@ describe("money engine", () => {
     expect(sim.goalImpact).toBeDefined();
     expect(sim.goalImpact!.length).toBeGreaterThan(0);
     expect(sim.goalImpact![0].goalName).toBe("Emergency fund");
+  });
+  it("generates contextual runway advice and coaching cues", () => {
+    const forecast = getForecast(seedState);
+    const metrics = getMetrics(seedState, forecast);
+    const advice = getRunwayAdvice(metrics, seedState);
+    expect(advice.length).toBeGreaterThan(0);
+    expect(
+      advice.some(
+        (a) =>
+          a.type === "warning" || a.type === "opportunity" || a.type === "tip",
+      ),
+    ).toBe(true);
   });
 });

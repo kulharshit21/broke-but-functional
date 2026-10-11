@@ -163,6 +163,12 @@ function hasUniqueIds(groups: Array<Array<{ id: string }>>): boolean {
 }
 
 /** Strict trust boundary for localStorage and user-supplied JSON imports. */
+/**
+ * Strict runtime schema validator for imported JSON payloads.
+ * Enforces cardinality ceilings, numerical ranges, unique IDs, and rejects prototype pollution.
+ * @param value Untrusted raw JSON input
+ * @returns Validated and cloned MoneyState, or null if schema violation detected
+ */
 export function parseMoneyState(value: unknown): MoneyState | null {
   if (!isRecord(value) || value.version !== 1 || !isRecord(value.profile))
     return null;

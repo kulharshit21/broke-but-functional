@@ -248,21 +248,38 @@ flowchart TD
 ```text
 broke-but-functional/
 ├── app/
-│   ├── globals.css             # Handcrafted CSS design system & micro-animations
-│   ├── layout.tsx              # Application shell, metadata & security headers
-│   └── page.tsx                # Client product entry point
+│   ├── globals.css                # Handcrafted CSS design system & responsive rules
+│   ├── layout.tsx                 # Application shell, responsive viewport & metadata
+│   └── page.tsx                   # Client product entry point
 ├── components/
-│   ├── money-app.tsx           # Unified component housing the 5 core experiences
-│   └── money-app.test.tsx      # Component integration & accessibility test suite
+│   ├── dashboard/
+│   │   ├── BudgetRing.tsx         # Interactive SVG ₹10k Pool Allocation Ring
+│   │   └── CategoryBreakdown.tsx  # Dynamic category spending distribution bars
+│   ├── calendar/
+│   │   └── SpendingMatrix.tsx     # 30-Day Spending & Solvency heatmap matrix
+│   ├── what-if/
+│   │   └── GoalImpactCard.tsx     # Savings goal ripple effect and delay feedback
+│   ├── goals/
+│   │   └── GoalLockboxSimulator.tsx # Interactive emergency cash lockbox slider
+│   ├── health/
+│   │   └── HealthAdvice.tsx       # Personalized runway intelligence & guidance
+│   ├── money-app.tsx              # Main state conductor and tab router
+│   ├── money-app.test.tsx         # Integration & accessibility tests
+│   └── __tests__/
+│       └── modular-components.test.tsx # Unit tests for modular UI components
 ├── lib/
-│   ├── engine.ts               # Pure deterministic math, forecast & scoring engine
-│   ├── engine.test.ts          # Mathematical precision & edge-case test suite
-│   ├── seed.ts                 # Day-8 realistic scenario state & simulation presets
-│   ├── types.ts                # Strict TypeScript domain interfaces & types
-│   ├── validation.ts           # Schema validation guard for imported payloads
-│   └── validation.test.ts      # Malicious import & schema fuzzing test suite
-└── .github/workflows/
-    └── ci.yml                  # Automated release pipeline (Lint, Typecheck, Test, Build)
+│   ├── engine.ts                  # Pure deterministic math & simulation engine
+│   ├── engine.test.ts             # Mathematical precision & edge-case test suite
+│   ├── seed.ts                    # Day-8 realistic scenario state & presets
+│   ├── types.ts                   # Strict TypeScript domain model & interfaces
+│   ├── validation.ts              # Strict runtime schema validation guard
+│   └── validation.test.ts         # Hostile payload & fuzzing test suite
+├── .github/workflows/
+│   └── ci.yml                     # Continuous integration pipeline
+├── ARCHITECTURE.md                # System architecture specification
+├── CONTRIBUTING.md                # Developer contribution guidelines
+├── CHANGELOG.md                   # Semantic version history
+└── README.md                      # Executive product documentation
 ```
 
 - **Framework**: [Next.js 16.4](https://nextjs.org/) (App Router, Turbopack)
@@ -276,7 +293,7 @@ broke-but-functional/
 
 ## Verification & Testing Quality Gate
 
-Every commit is validated through an automated CI pipeline comprising **23 comprehensive test cases** and strict build checks:
+Every commit is validated through an automated CI pipeline comprising **30 comprehensive test cases** and strict build checks:
 
 ```bash
 npm run verify
@@ -298,12 +315,20 @@ The verification gate executes the following sequence:
      - Risk and Health index bounded score guarantees ($[0, 100]$).
      - Category spending distribution calculations.
      - Goal ripple effect delay and daily required calculation accuracy.
+     - Contextual runway advice and intelligence generation.
    - **Security & Schema Tests** (`validation.test.ts`):
      - Successful parsing of compliant financial payloads.
      - Strict rejection of missing fields, malformed numbers, and invalid dates.
      - Rejection of oversized payloads (> 256 KB) and excessive collections.
      - Rejection of duplicate entity identifiers and prototype-polluting payloads.
-   - **Component & Accessibility Tests** (`money-app.test.tsx`):
+   - **Modular Component Tests** (`modular-components.test.tsx`):
+     - Budget allocation ring rendering and legend synchronization.
+     - Category breakdown bar progression.
+     - 30-day matrix tile interaction.
+     - Goal ripple delay consequence display.
+     - Emergency lockbox simulator slider reactivity.
+     - Runway intelligence guidance cues.
+   - **User Flow & Accessibility Tests** (`money-app.test.tsx`):
      - Core cockpit rendering and metric synchronization.
      - What-If Lab simulation workflow and consequence receipts.
      - Quick-entry dialog focus management, keyboard trap, and `Escape` dismissal.

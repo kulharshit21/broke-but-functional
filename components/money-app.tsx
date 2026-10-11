@@ -34,19 +34,19 @@ import {
 import {
   applyScenario,
   formatINR,
-  getCategoryBreakdown,
-  getCurrentBalance,
-  getDaysLeft,
   getForecast,
   getMetrics,
-  getSafeToSpendToday,
-  getShockReserve,
-  getUpcomingCommittedTotal,
   simulateDecision,
 } from "@/lib/engine";
 import { scenarioPresets, seedState } from "@/lib/seed";
 import { MAX_IMPORT_BYTES, parseMoneyState } from "@/lib/validation";
 import { useModalDialog } from "@/components/use-modal-dialog";
+import { BudgetRing } from "@/components/dashboard/BudgetRing";
+import { CategoryBreakdown } from "@/components/dashboard/CategoryBreakdown";
+import { SpendingMatrix } from "@/components/calendar/SpendingMatrix";
+import { GoalImpactCard } from "@/components/what-if/GoalImpactCard";
+import { GoalLockboxSimulator } from "@/components/goals/GoalLockboxSimulator";
+import { HealthAdvice } from "@/components/health/HealthAdvice";
 import type {
   Category,
   ForecastDay,
@@ -421,193 +421,6 @@ function MobileNav({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
   );
 }
 
-function BudgetRing({
-  totalBudget,
-  availableBalance,
-  spent,
-  committed,
-  protectedSavings,
-}: {
-  totalBudget: number;
-  availableBalance: number;
-  spent: number;
-  committed: number;
-  protectedSavings: number;
-}) {
-  const size = 176;
-  const strokeWidth = 14;
-  const radius = (size - strokeWidth) / 2;
-  const circumference = 2 * Math.PI * radius;
-
-  const total = Math.max(1, totalBudget);
-  const spentPct = Math.min(100, Math.max(0, (spent / total) * 100));
-  const committedPct = Math.min(100, Math.max(0, (committed / total) * 100));
-  const savingsPct = Math.min(
-    100,
-    Math.max(0, (protectedSavings / total) * 100),
-  );
-  const availablePct = Math.max(
-    0,
-    100 - (spentPct + committedPct + savingsPct),
-  );
-
-  const availableStroke = (availablePct / 100) * circumference;
-  const spentStroke = (spentPct / 100) * circumference;
-  const committedStroke = (committedPct / 100) * circumference;
-  const savingsStroke = (savingsPct / 100) * circumference;
-
-  let offset = 0;
-  const availableOffset = offset;
-  offset += availableStroke;
-  const spentOffset = offset;
-  offset += spentStroke;
-  const committedOffset = offset;
-  offset += committedStroke;
-  const savingsOffset = offset;
-
-  return (
-    <div className="budget-ring-wrap">
-      <div className="ring-container" style={{ width: size, height: size }}>
-        <svg
-          width={size}
-          height={size}
-          viewBox={`0 0 ${size} ${size}`}
-          className="ring-svg"
-          role="img"
-          aria-label={`Budget allocation ring: ${formatINR(availableBalance)} available (${Math.round(availablePct)}%), ${formatINR(spent)} spent (${Math.round(spentPct)}%), ${formatINR(committed)} committed (${Math.round(committedPct)}%), ${formatINR(protectedSavings)} saved (${Math.round(savingsPct)}%)`}
-        >
-          <circle
-            cx={size / 2}
-            cy={size / 2}
-            r={radius}
-            fill="transparent"
-            stroke="var(--surface2)"
-            strokeWidth={strokeWidth}
-          />
-          {availableStroke > 0 && (
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="transparent"
-              stroke="#124f37"
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${availableStroke} ${circumference}`}
-              strokeDashoffset={-availableOffset}
-              strokeLinecap="round"
-            />
-          )}
-          {spentStroke > 0 && (
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="transparent"
-              stroke="#b86b1d"
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${spentStroke} ${circumference}`}
-              strokeDashoffset={-spentOffset}
-              strokeLinecap="round"
-            />
-          )}
-          {committedStroke > 0 && (
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="transparent"
-              stroke="#2459a9"
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${committedStroke} ${circumference}`}
-              strokeDashoffset={-committedOffset}
-              strokeLinecap="round"
-            />
-          )}
-          {savingsStroke > 0 && (
-            <circle
-              cx={size / 2}
-              cy={size / 2}
-              r={radius}
-              fill="transparent"
-              stroke="#059669"
-              strokeWidth={strokeWidth}
-              strokeDasharray={`${savingsStroke} ${circumference}`}
-              strokeDashoffset={-savingsOffset}
-              strokeLinecap="round"
-            />
-          )}
-        </svg>
-        <div className="ring-center">
-          <small>SPENDABLE</small>
-          <strong>{formatINR(availableBalance)}</strong>
-          <span>{Math.round(availablePct)}% left</span>
-        </div>
-      </div>
-      <div className="ring-legend">
-        <div className="legend-item">
-          <span className="dot dot-avail" />
-          <small>Avail: {formatINR(availableBalance)}</small>
-        </div>
-        <div className="legend-item">
-          <span className="dot dot-spent" />
-          <small>Spent: {formatINR(spent)}</small>
-        </div>
-        <div className="legend-item">
-          <span className="dot dot-com" />
-          <small>Bills: {formatINR(committed)}</small>
-        </div>
-        <div className="legend-item">
-          <span className="dot dot-sav" />
-          <small>Goals: {formatINR(protectedSavings)}</small>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function CategoryBreakdown({ state }: { state: MoneyState }) {
-  const items = useMemo(() => getCategoryBreakdown(state), [state]);
-  const totalSpent = items.reduce((sum, item) => sum + item.amount, 0);
-
-  return (
-    <div className="category-panel">
-      <div className="section-title compact">
-        <div>
-          <p className="eyebrow">SPENDING DYNAMICS</p>
-          <h2>Category Breakdown</h2>
-        </div>
-        <span>Total: {formatINR(totalSpent)}</span>
-      </div>
-      {items.length === 0 ? (
-        <p className="empty-text">No recorded expenses yet.</p>
-      ) : (
-        <div className="category-bars">
-          {items.map((cat) => (
-            <div key={cat.category} className="cat-row">
-              <div className="cat-head">
-                <span className="cat-name">{cat.name}</span>
-                <span className="cat-nums">
-                  <small>{cat.percentage}%</small>
-                  <strong>{formatINR(cat.amount)}</strong>
-                </span>
-              </div>
-              <div className="cat-track">
-                <div
-                  className="cat-fill"
-                  style={{
-                    width: `${Math.min(100, Math.max(3, cat.percentage))}%`,
-                    backgroundColor: cat.color,
-                  }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
-    </div>
-  );
-}
-
 function Today({
   state,
   metrics,
@@ -712,24 +525,11 @@ function Today({
             <span>Pool Allocation</span>
             <span className="live-dot">₹10,000 CAP</span>
           </div>
-          <BudgetRing
-            totalBudget={state.profile.startingBalance}
-            availableBalance={Math.max(
-              0,
-              metrics.currentBalance -
-                metrics.committed -
-                metrics.protectedSavings,
-            )}
-            spent={Math.max(
-              0,
-              state.profile.startingBalance - metrics.currentBalance,
-            )}
-            committed={metrics.committed}
-            protectedSavings={metrics.protectedSavings}
-          />
+          <BudgetRing state={state} metrics={metrics} />
         </div>
         <CategoryBreakdown state={state} />
       </section>
+      <HealthAdvice state={state} metrics={metrics} />
       <section className="two-col">
         <div className="insight-card">
           <div className="stamp">
@@ -1065,30 +865,7 @@ function Simulate({
           <b>Hits on Day {scenario.day}</b>
         </div>
         <Comparison before={result.before} after={result.after} />
-        {result.goalImpact && result.goalImpact.length > 0 && (
-          <div className="goal-ripple-card">
-            <div className="ripple-head">
-              <Target size={16} />
-              <span>Savings Goal Ripple Effect</span>
-            </div>
-            <div className="ripple-list">
-              {result.goalImpact.map((gi) => (
-                <div key={gi.goalId} className="ripple-item">
-                  <span>{gi.goalName}</span>
-                  <span
-                    className={`ripple-badge ${gi.stillOnTrack ? "on-track" : "delayed"}`}
-                  >
-                    {gi.stillOnTrack
-                      ? "✓ On Track"
-                      : gi.delayDays > 0
-                        ? `Delayed by ${gi.delayDays} days`
-                        : `Needs +${formatINR(gi.dailyRequired)}/day`}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-        )}
+        <GoalImpactCard goalImpact={result.goalImpact || []} />
         <div className="consequence-note">
           <AlertTriangle size={20} />
           <div>
@@ -1209,100 +986,6 @@ function Comparison({
   );
 }
 
-function SpendingMatrix({
-  state,
-  forecast,
-  selectedDay,
-  onSelectDay,
-}: {
-  state: MoneyState;
-  forecast: ForecastDay[];
-  selectedDay: number;
-  onSelectDay: (d: number) => void;
-}) {
-  const daySpendMap = new Map<number, number>();
-  for (const t of state.ledger) {
-    if (
-      t.status === "completed" &&
-      t.type !== "income" &&
-      t.type !== "goal_withdrawal" &&
-      t.type !== "loan_received"
-    ) {
-      daySpendMap.set(t.day, (daySpendMap.get(t.day) || 0) + t.amount);
-    }
-  }
-
-  const forecastMap = new Map(forecast.map((f) => [f.day, f]));
-
-  return (
-    <section className="spending-matrix-panel">
-      <div className="matrix-head">
-        <div>
-          <p className="eyebrow">30-DAY BEAT</p>
-          <h3>Spending & Solvency Matrix</h3>
-        </div>
-        <span className="matrix-badge">
-          Day {state.profile.currentDay} Active
-        </span>
-      </div>
-      <div className="matrix-grid">
-        {Array.from({ length: state.profile.monthLength }, (_, i) => i + 1).map(
-          (day) => {
-            const isToday = day === state.profile.currentDay;
-            const isPast = day < state.profile.currentDay;
-            const isSelected = day === selectedDay;
-            const pastSpend = daySpendMap.get(day) || 0;
-            const f = forecastMap.get(day);
-
-            let statusClass = "matrix-safe";
-            if (isPast) {
-              if (pastSpend === 0) statusClass = "matrix-zero";
-              else if (pastSpend < 30000) statusClass = "matrix-low";
-              else if (pastSpend < 60000) statusClass = "matrix-mid";
-              else statusClass = "matrix-high";
-            } else if (f) {
-              if (f.isDanger) statusClass = "matrix-danger";
-              else if (f.isLow) statusClass = "matrix-tight";
-              else statusClass = "matrix-safe";
-            }
-
-            return (
-              <button
-                key={day}
-                type="button"
-                onClick={() => onSelectDay(day)}
-                className={`matrix-tile ${statusClass} ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
-                title={`Day ${day}: ${isPast ? `Spent ${formatINR(pastSpend)}` : f ? `Projected ${formatINR(f.balance)}` : ""}`}
-              >
-                <span className="tile-day">D{day}</span>
-                <span className="tile-val">
-                  {isPast
-                    ? pastSpend > 0
-                      ? formatINR(pastSpend)
-                      : "₹0"
-                    : f
-                      ? formatINR(f.balance)
-                      : "—"}
-                </span>
-              </button>
-            );
-          },
-        )}
-      </div>
-      <div className="matrix-legend">
-        <span>Darker = heavier spend / danger</span>
-        <div className="legend-pills">
-          <span className="pill pill-zero">₹0</span>
-          <span className="pill pill-low">&lt;₹300</span>
-          <span className="pill pill-mid">₹300–₹600</span>
-          <span className="pill pill-high">&gt;₹600</span>
-          <span className="pill pill-danger">Danger</span>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function CalendarView({
   state,
   forecast,
@@ -1404,115 +1087,6 @@ function CalendarView({
         </div>
       </section>
     </div>
-  );
-}
-
-function GoalLockboxSimulator({
-  state,
-  updateState,
-}: {
-  state: MoneyState;
-  updateState: (fn: (s: MoneyState) => MoneyState, msg: string) => void;
-}) {
-  const primaryGoal = state.goals[0];
-  const [lockAmount, setLockAmount] = useState(500);
-  const currentDaily = getSafeToSpendToday(state);
-  const currentDaysLeft = getDaysLeft(state);
-  const lockAmountPaise = lockAmount * 100;
-  const newBalance = Math.max(0, getCurrentBalance(state) - lockAmountPaise);
-  const simDaily = Math.max(
-    0,
-    Math.floor(
-      (newBalance -
-        getUpcomingCommittedTotal(state) -
-        getShockReserve(state) -
-        state.profile.minimumBuffer) /
-        currentDaysLeft,
-    ),
-  );
-  const dailyDelta = simDaily - currentDaily;
-
-  const handleApplyLock = () => {
-    if (!primaryGoal) return;
-    updateState(
-      (s) => {
-        const g = s.goals.find((x) => x.id === primaryGoal.id);
-        if (g) g.saved += lockAmountPaise;
-        s.ledger.unshift({
-          id: `lock-${Date.now()}`,
-          label: `Locked into ${primaryGoal.label}`,
-          amount: lockAmountPaise,
-          day: s.profile.currentDay,
-          category: "savings",
-          type: "savings_contribution",
-          status: "completed",
-          essential: false,
-        });
-        return s;
-      },
-      `Locked ${formatINR(lockAmountPaise)} into ${primaryGoal.label}. Buffer reinforced.`,
-    );
-  };
-
-  return (
-    <section className="goal-lockbox-card">
-      <div className="section-title compact">
-        <div>
-          <p className="eyebrow">SAVINGS RIPPLE SIMULATOR</p>
-          <h2>Emergency Lockbox Simulator</h2>
-        </div>
-        <span className="lockbox-badge">Test Lock Impact</span>
-      </div>
-      <p className="lockbox-desc">
-        See how locking cash into your goal right now tightens today's daily
-        allowance but solidifies your emergency safety net.
-      </p>
-      <div className="lockbox-slider-box">
-        <div className="slider-label">
-          <span>Amount to lock into {primaryGoal?.label || "savings"}</span>
-          <strong>₹{lockAmount.toLocaleString("en-IN")}</strong>
-        </div>
-        <input
-          type="range"
-          min={100}
-          max={Math.min(3000, Math.floor(getCurrentBalance(state) / 100))}
-          step={100}
-          value={lockAmount}
-          onChange={(e) => setLockAmount(Number(e.target.value))}
-          className="lockbox-slider"
-          aria-label="Amount to lock into savings"
-        />
-        <div className="lockbox-presets">
-          {[200, 500, 1000, 1500].map((amt) => (
-            <button
-              key={amt}
-              type="button"
-              className={`preset-btn ${lockAmount === amt ? "active" : ""}`}
-              onClick={() => setLockAmount(amt)}
-            >
-              +₹{amt}
-            </button>
-          ))}
-        </div>
-      </div>
-      <div className="lockbox-results">
-        <div className="res-card">
-          <small>Current Safe Daily</small>
-          <strong>{formatINR(currentDaily)}</strong>
-        </div>
-        <div className="res-card">
-          <small>Simulated Daily</small>
-          <strong className={dailyDelta < 0 ? "warn-text" : ""}>
-            {formatINR(simDaily)}
-          </strong>
-          <span className="delta-tag">{formatINR(dailyDelta, true)}/day</span>
-        </div>
-      </div>
-      <button type="button" className="primary full" onClick={handleApplyLock}>
-        <ShieldCheck size={16} /> Confirm Lock of ₹
-        {lockAmount.toLocaleString("en-IN")}
-      </button>
-    </section>
   );
 }
 

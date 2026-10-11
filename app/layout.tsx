@@ -10,6 +10,18 @@ export const metadata: Metadata = {
   description:
     "A candid 30-day money survival companion for making every rupee count.",
   applicationName: "Broke But Functional",
+  keywords: [
+    "personal finance",
+    "budget simulator",
+    "gen z finance",
+    "10000 budget",
+    "cashflow forecast",
+    "financial health",
+  ],
+  authors: [{ name: "Broke But Functional Team" }],
+  formatDetection: {
+    telephone: false,
+  },
   manifest: "/site.webmanifest",
   icons: {
     icon: [{ url: "/icon.svg", type: "image/svg+xml" }],
@@ -32,6 +44,9 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
   themeColor: "#103f2c",
   colorScheme: "light",
 };
