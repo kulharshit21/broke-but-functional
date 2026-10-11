@@ -2,8 +2,17 @@ import { describe, expect, it } from "vitest";
 import { seedState } from "./seed";
 import { MAX_IMPORT_BYTES, parseMoneyState } from "./validation";
 
-const clone = () =>
-  structuredClone(seedState) as unknown as Record<string, any>;
+type StateDraft = {
+  profile: Record<string, unknown>;
+  ledger: Array<Record<string, unknown>>;
+  commitments: Array<Record<string, unknown>>;
+  subscriptions: Array<Record<string, unknown>>;
+  goals: Array<Record<string, unknown>>;
+  risks: Array<Record<string, unknown>>;
+  decisionsLog: Array<Record<string, unknown>>;
+};
+
+const clone = () => structuredClone(seedState) as unknown as StateDraft;
 
 describe("money-state trust boundary", () => {
   it("accepts and clones the canonical demo state", () => {

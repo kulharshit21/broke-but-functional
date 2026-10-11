@@ -9,7 +9,6 @@ import {
   CalendarDays,
   Check,
   ChevronRight,
-  CircleDollarSign,
   Download,
   FlaskConical,
   Goal,
