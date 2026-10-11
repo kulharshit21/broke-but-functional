@@ -1,0 +1,963 @@
+Build a complete, polished, local-first web app called “Broke But Functional — Survive the Month”.
+
+This is not a basic expense tracker. Build it like a real consumer fintech product for Gen Z users in India who have only ₹10,000 to survive 30 days. The app must make every financial decision feel real, connected, and slightly intense: balance, daily allowance, savings goals, subscriptions, unexpected expenses, risk, and monthly forecast should all update together.
+
+The final result should feel handcrafted, specific, and product-grade. It must not feel like a generic AI-generated dashboard. Avoid boilerplate language, placeholder copy, lorem ipsum, fake futuristic branding, or vague “insights” screens.
+
+PRIMARY GOAL
+Create an interactive experience where the user can:
+1. See how much money they can safely spend today.
+2. Simulate a financial decision before applying it.
+3. See how that decision affects:
+   - remaining balance
+   - safe-to-spend today
+   - daily allowance
+   - month-end forecast
+   - savings goals
+   - subscriptions
+   - unexpected expense risk
+   - financial risk score
+   - overall financial health score
+4. Apply the decision only after understanding the consequences.
+5. Track the full 30-day month with a clear cashflow forecast and danger days.
+
+PRODUCT POSITIONING
+Name: Broke But Functional
+Subtitle: Survive the Month
+Tone: candid, practical, slightly witty, but never childish. It should feel like a sharp friend who knows your bank balance and is trying to keep you from self-sabotage.
+Audience: Gen Z students, early earners, freelancers, interns, hostel users, young adults managing money on UPI, limited pocket money, stipends, or small salaries.
+Currency: Indian rupees only. Use ₹ and en-IN formatting.
+Core constraint: ₹10,000 budget across 30 days.
+
+NON-NEGOTIABLE QUALITY BAR
+- No blank screens.
+- No placeholder text.
+- No console errors.
+- No TODO comments.
+- No lorem ipsum.
+- No generic AI copy.
+- No fake “AI-powered” claims.
+- No overused phrases like “unlock”, “discover”, “seamless”, “revolutionary”, “next-gen”, “empower”, or “delve”.
+- All numbers must be formatted as INR with no unnecessary decimals.
+- All money calculations should use integer rupees to avoid floating point errors.
+- The app must work offline after load.
+- State must persist in localStorage.
+- The app must be fully responsive from 360px mobile to desktop.
+- Keyboard accessible, focus visible, semantic HTML, ARIA labels where needed.
+- Respect prefers-reduced-motion.
+- Include a demo reset button.
+- Include a README.md with run instructions, architecture, formulas, and a 2-minute demo script.
+- The app should be immediately demoable with seeded realistic data.
+
+TECH STACK
+Use:
+- Vite
+- React
+- TypeScript
+- Plain CSS with a custom design system, not Tailwind and not a UI component library
+- No router needed; use tab-based navigation
+- No external chart library; build lightweight custom SVG charts
+- localStorage for persistence
+- Vitest for a small set of pure-function tests around the money engine
+
+Create a complete project that can run with:
+npm install
+npm run dev
+
+Also ensure:
+npm run build
+works.
+
+Use TypeScript strict mode.
+
+Remove all default Vite boilerplate copy. Replace favicon with a simple custom SVG.
+
+APP STRUCTURE
+Build the app with these tabs:
+1. Today
+2. Simulate
+3. Calendar
+4. Goals & Subs
+5. Ledger
+
+Also include:
+- top bar with app name, current day, balance, and risk badge
+- bottom navigation on mobile
+- desktop sidebar or top navigation on larger screens
+- toast notifications
+- confirm modal for risky or destructive actions
+- onboarding/demo modal on first load with two options:
+  “Use demo month” and “Start fresh”
+Default to demo month for judging.
+
+CORE PRODUCT CONCEPT
+The app should answer one main question at all times:
+“What can I safely spend today without breaking my month?”
+
+Show this as a hero metric called “Safe to spend today”.
+
+Also show:
+- Balance now
+- Days left
+- Daily allowance
+- Locked for commitments
+- Savings protected
+- Risk level
+- Financial health score
+- Next danger day
+- Projected month-end balance
+- Expected shock exposure
+
+DATA MODEL
+Create a strongly typed state model.
+
+State should include:
+- profile:
+  - monthLength: 30
+  - currentDay: number
+  - startingBalance: number
+  - minimumBuffer: number
+  - plannedDailySpend: number
+  - riskTolerance: 'cautious' | 'balanced' | 'bold'
+- ledger:
+  - array of completed transactions
+- upcomingCommitments:
+  - array of future promised payments
+- subscriptions:
+  - array of recurring services
+- goals:
+  - array of savings goals
+- risks:
+  - array of possible unexpected expenses
+- decisionsLog:
+  - array of applied simulated decisions
+- ui:
+  - activeTab
+  - modal state
+  - toast state
+- simulation:
+  - current scenario being tested, not applied
+
+Transaction type should support:
+- income
+- expense
+- savings contribution
+- goal withdrawal
+- subscription charge
+- commitment payment
+- emergency
+- loan received
+- loan repayment
+
+Each money item should include:
+- id
+- label
+- amount
+- day
+- category
+- type
+- status: 'completed' | 'upcoming' | 'simulated'
+- optional note
+
+Categories:
+- needs
+- groceries
+- food
+- transport
+- subscriptions
+- utilities
+- fun
+- social
+- health
+- education
+- emergency
+- income
+- savings
+- debt
+
+FINANCIAL ENGINE
+Build a pure TypeScript money engine in separate files. All derived values should be calculated from state and should be testable.
+
+Implement these selectors/functions:
+
+1. getCurrentBalance(state)
+   Starting balance plus completed income minus completed expenses.
+
+2. getDaysLeft(state)
+   monthLength - currentDay + 1
+   Treat current day as still usable.
+
+3. getUpcomingCommittedTotal(state)
+   Sum of all future non-optional commitments, active subscriptions due before month end, and protected goal contributions due.
+
+4. getProtectedGoalReserve(state)
+   Amount that should stay locked for protected savings goals.
+
+5. getExpectedShockExposure(state)
+   Sum of risk.amount * risk.probability for all active unexpected risks.
+
+6. getShockReserve(state)
+   A conservative reserve based on expected shock exposure.
+   Use:
+   min(1500, round(expectedShockExposure * 0.4))
+
+7. getSafeToSpendToday(state)
+   Use this formula:
+   availableForDaily = currentBalance - upcomingCommittedTotal - protectedGoalReserve - shockReserve - minimumBuffer
+   safeToSpendToday = max(0, floor(availableForDaily / daysLeft))
+
+   If availableForDaily is negative, safeToSpendToday is 0 and show shortfall clearly.
+
+8. getDailyAllowance(state)
+   Same base logic as safe-to-spend but display it as average allowed daily spend.
+
+9. getRunwayDays(state)
+   Simulate future days using:
+   - plannedDailySpend
+   - upcoming commitments
+   - active subscriptions
+   - scheduled income
+   - expected shocks only if the user chooses “include likely shocks”
+   Count how many days the user can continue before balance falls below minimumBuffer.
+
+10. getForecast(state, scenario?)
+   Return a 30-day array with:
+   - day
+   - baselineBalance
+   - scenarioBalance if scenario exists
+   - committedOutflow for that day
+   - income for that day
+   - isDangerDay
+   - isLowBalanceDay
+
+   Forecast rules:
+   - Start from current balance on currentDay.
+   - For each remaining day, subtract plannedDailySpend.
+   - Subtract scheduled commitments and subscriptions due that day.
+   - Add scheduled income due that day.
+   - If scenario is provided, apply the scenario action on its selected day.
+   - Danger day = projected balance below minimumBuffer.
+   - Low balance day = projected balance below minimumBuffer + 500.
+
+11. getRiskScore(state, forecast)
+   Return 0 to 100.
+   Use weighted logic:
+   - danger days count
+   - projected negative balance
+   - commitments due in next 7 days relative to balance
+   - expected shock exposure relative to balance
+   - subscription burden relative to safe-to-spend
+   - lack of upcoming income when balance is low
+   - recent overspend pattern
+
+   Suggested implementation:
+   - dangerDays * 3, capped at 30
+   - negative month-end balance penalty, capped at 25
+   - next7CommitmentPressure, capped at 20
+   - shockExposurePressure, capped at 15
+   - subscriptionPressure, capped at 10
+   Clamp total between 0 and 100.
+
+   Risk labels:
+   - 0 to 24: Steady
+   - 25 to 49: Tight
+   - 50 to 74: Risky
+   - 75 to 100: Danger
+
+12. getHealthScore(state, forecast)
+   Return 0 to 100.
+   Weighted score:
+   - survival runway: 30%
+   - cushion after commitments: 20%
+   - savings goal progress: 15%
+   - commitment coverage: 15%
+   - spending discipline: 10%
+   - shock readiness: 10%
+
+   Health labels:
+   - 0 to 39: Fragile
+   - 40 to 69: Managing
+   - 70 to 100: Stable
+
+13. simulateDecision(state, action)
+   Return a before/after comparison object including:
+   - currentBalance
+   - projectedMonthEndBalanceBefore
+   - projectedMonthEndBalanceAfter
+   - safeToSpendTodayBefore
+   - safeToSpendTodayAfter
+   - dailyAllowanceBefore
+   - dailyAllowanceAfter
+   - runwayDaysBefore
+   - runwayDaysAfter
+   - riskScoreBefore
+   - riskScoreAfter
+   - healthScoreBefore
+   - healthScoreAfter
+   - goalImpact
+   - dangerDaysBefore
+   - dangerDaysAfter
+   - nextDangerDayBefore
+   - nextDangerDayAfter
+   - warningMessages
+   - recommendation
+
+SIMULATION ENGINE
+The simulation system is the heart of the app.
+
+Users must be able to simulate these decision types:
+- one-time expense
+- one-time income
+- subscription pause
+- subscription cancel
+- delay a bill
+- contribute to savings goal
+- withdraw from savings goal
+- take a small loan
+- repay a loan
+- emergency expense
+- side gig with cost tradeoff
+- buy now pay later style deferred expense
+
+Every simulation should be non-destructive until the user presses Apply.
+
+Simulation panel should allow:
+- choose preset scenario
+- create custom scenario
+- choose day
+- choose amount
+- choose category
+- choose whether to include likely shocks
+- see before/after comparison
+- see warning messages
+- apply or discard
+
+Include these preset simulations:
+1. “Buy concert ticket”
+   Expense ₹900, day 12, category fun.
+2. “Pause OTT subscription”
+   Saves ₹199, subscription pause.
+3. “Emergency medical expense”
+   Expense ₹650, day 18, category health.
+4. “Take freelance gig”
+   Income ₹1200 on day 11, but adds transport cost ₹180 on day 11.
+5. “Buy sneakers with BNPL”
+   ₹0 today, adds commitment ₹1500 on day 25, increases risk.
+6. “Delay mobile recharge”
+   Moves ₹239 payment 3 days forward, small risk increase.
+7. “Cancel music subscription”
+   Saves ₹119.
+8. “Add birthday gift expense”
+   Expense ₹450, social category.
+9. “Contribute ₹300 to emergency fund”
+   Reduces available spend but improves stability.
+10. “Phone repair shock”
+   Expense ₹900, emergency.
+
+When applying a simulation:
+- add it to ledger or upcoming commitments as appropriate
+- add an entry to decisionsLog
+- show a Decision Receipt modal
+- update all metrics
+- show a toast with consequence summary
+
+Decision Receipt should say things like:
+- “You paused OTT. You freed up ₹199 and reduced risk by 4.”
+- “This expense removes your buffer by Day 18.”
+- “Your daily allowance drops from ₹214 to ₹176.”
+- “This keeps your emergency goal alive.”
+- “This likely breaks your month unless you cut something else.”
+
+UI REQUIREMENTS
+Build a polished, modern, Gen Z-friendly interface. It should feel like a real fintech app, not a hackathon table.
+
+MAIN DASHBOARD: TODAY TAB
+This is the most important screen.
+
+It must immediately show:
+- Balance now
+- Safe to spend today
+- Days left
+- Daily allowance
+- Locked for commitments
+- Risk badge
+- Health score
+- Next danger day
+- Projected month-end balance
+- 30-day cashflow sparkline
+- next 3 upcoming commitments
+- quick actions
+
+Quick actions:
+- Add expense
+- Add income
+- Simulate decision
+- Pause a subscription
+- Add to savings
+- Run shock drill
+
+Hero section should not be a marketing hero. Start with the user’s money situation.
+
+Example dashboard copy:
+- “You have ₹5,640 left.”
+- “Safe to spend today: ₹186.”
+- “₹3,107 is already spoken for.”
+- “If nothing changes, you hit danger on Day 21.”
+- “One surprise could break this week.”
+
+Include a “Money Mood” indicator that is not childish:
+- Stable
+- Tight
+- Fragile
+- Danger
+
+Include a “Danger Day Strip”: a horizontal 30-day strip showing safe days, tight days, and danger days.
+
+SIMULATE TAB
+This should feel like a decision lab.
+
+Layout:
+- left side: scenario builder and presets
+- right side: before/after comparison and forecast chart
+- mobile: stacked vertically
+
+Comparison panel must show deltas with clear visual treatment:
+- green for improvement
+- red for worsening
+- neutral for no change
+
+Show:
+- balance impact
+- safe-to-spend impact
+- daily allowance impact
+- runway impact
+- risk impact
+- health impact
+- danger days impact
+- goal impact
+- warning list
+
+If a decision is bad, show a blunt but useful warning:
+- “This is survivable only if you skip another fun expense.”
+- “This leaves you with less than your buffer.”
+- “This pushes you into danger 4 days earlier.”
+- “This does not break today, but it weakens your whole month.”
+
+If a decision is good:
+- “This gives you breathing room.”
+- “This strengthens your emergency cushion.”
+- “This buys you 2 extra safe days.”
+
+CALENDAR TAB
+Show a 30-day timeline or month strip.
+
+Each day should show:
+- projected balance
+- income
+- commitments
+- subscriptions
+- danger state
+- selected scenario changes if a simulation is active
+
+Clicking a day should open details:
+- expected balance
+- items due
+- add expense on that day
+- simulate income on that day
+- see warnings
+
+Include visual distinction:
+- safe
+- tight
+- danger
+- simulated change
+
+GOALS & SUBSCRIPTIONS TAB
+Goals:
+- show target amount
+- saved amount
+- progress bar
+- protected or flexible
+- due date or target day
+- contribution action
+- withdraw action with warning
+
+Goal examples:
+- Emergency fund
+- Festival savings
+- Concert ticket
+- New earphones
+- Buffer top-up
+
+If withdrawing from a protected goal:
+- show warning
+- show risk increase
+- require confirmation
+
+Subscriptions:
+- show name
+- amount
+- due day
+- status
+- pause button
+- cancel button
+- resume button
+- total monthly cost
+- “money saved by pausing” metric
+
+Include a subscription pressure note:
+- “Your subscriptions eat 2 days of survival.”
+- “Pausing OTT gives you ₹199 back.”
+- “You are paying for 3 things while your buffer is thin.”
+
+LEDGER TAB
+Show a clear list of:
+- completed transactions
+- upcoming commitments
+- simulated pending items if active
+
+Each row:
+- label
+- category chip
+- day
+- amount with sign
+- type icon
+- status
+
+Include filters:
+- all
+- expenses
+- income
+- commitments
+- subscriptions
+- goals
+- emergencies
+
+Include undo for the last applied action.
+
+VISUAL DESIGN
+Create a distinctive design system. Do not use the generic dark purple AI startup look.
+
+Art direction:
+“Paper ledger meets modern Indian fintech.”
+
+Use:
+- warm off-white background
+- deep green primary
+- acid lime accent used sparingly
+- strong ink text
+- monospaced numerals for money
+- cards with thin borders
+- small hard shadows
+- rounded corners but not bubbly
+- subtle texture or dotted separators if useful
+- minimal inline SVG icons
+- no stock images
+- no emoji-heavy design
+
+Suggested tokens:
+--bg: #F6F3EA
+--surface: #FFFFFF
+--surface-2: #F1EDE2
+--ink: #171A17
+--muted: #5E6258
+--line: #D8D2C4
+--primary: #0E5B3A
+--primary-soft: #E3F0E5
+--accent: #C9F04C
+--accent-ink: #132015
+--danger: #B42318
+--danger-soft: #FBEAE8
+--warning: #9A3412
+--warning-soft: #FDF0E3
+--success: #166534
+--success-soft: #E7F4EA
+--info: #1D4ED8
+
+Typography:
+- Use a clean system font stack for UI text.
+- Use ui-monospace or SFMono-like stack for all money values.
+- Use tabular numbers.
+- Strong hierarchy.
+- Do not use giant empty marketing headlines.
+
+Buttons:
+- Primary: solid deep green
+- Secondary: bordered neutral
+- Danger: muted red, not neon
+- Ghost: subtle hover
+- All buttons should have hover, focus, active, disabled states
+
+Micro-interactions:
+- Safe-to-spend number should update with a subtle count transition
+- Risk meter should animate gently
+- Forecast line should draw smoothly
+- Toasts should slide in
+- Modal should scale/fade in
+- Respect reduced motion
+
+Charts:
+Build custom SVG components:
+1. Cashflow line chart
+   - baseline line
+   - scenario line if active
+   - danger threshold line
+   - danger day markers
+   - hover/focus tooltips
+   - accessible text summary below chart
+2. Risk gauge
+   - semicircle or linear meter
+   - clear label
+3. Health score dial
+   - simple ring or meter
+4. Danger day strip
+   - 30 small blocks
+   - green, amber, red, and highlighted simulated change
+
+COPY RULES
+Write copy like a real product team wrote it.
+
+Do:
+- be specific
+- use real numbers
+- be short
+- be direct
+- be slightly human
+- explain consequences
+- use Indian context naturally
+
+Do not:
+- sound like a blog post
+- sound like a chatbot
+- over-explain
+- use motivational clichés
+- use “Unlock”, “Discover”, “Seamless”, “Revolutionary”, “AI-powered”, “Insights-driven”
+- use fake delight
+- use empty phrases like “Take control of your finances”
+
+Good copy examples:
+- “Safe to spend today”
+- “Locked for bills”
+- “You can spend ₹186 today without hurting the month.”
+- “This leaves you short by Day 22.”
+- “Risk is high because rent and a shock could land in the same week.”
+- “Pause this subscription and you gain 1 extra safe day.”
+- “Your future self will notice this.”
+- “This is a fun expense, but it is not survivable right now.”
+- “You have 22 days and ₹5,640. That is tight but possible.”
+
+Bad copy examples to avoid:
+- “Welcome to your financial journey”
+- “Unlock smarter money insights”
+- “Discover a seamless budgeting experience”
+- “Take charge of your tomorrow”
+
+SEED DEMO DATA
+The app should open with a realistic demo month already loaded.
+
+Demo setup:
+- monthLength: 30
+- currentDay: 8
+- startingBalance: 10000
+- minimumBuffer: 750
+- plannedDailySpend: 160
+- riskTolerance: cautious
+
+Completed ledger:
+Day 1:
+- Starting balance ₹10,000
+
+Day 2:
+- Room rent, expense, needs, -₹3,200
+
+Day 3:
+- Weekly grocery, groceries, -₹850
+
+Day 4:
+- Bus pass, transport, -₹850
+
+Day 5:
+- Freelance editing payment, income, +₹1,200
+
+Day 6:
+- Chai and snacks, food, -₹180
+
+Day 7:
+- Electricity bill, utilities, -₹480
+
+Current balance after completed ledger should be ₹5,640.
+
+Upcoming commitments:
+Day 9:
+- Mobile recharge, utilities, ₹239
+
+Day 10:
+- Friend’s birthday gift, social, ₹450
+
+Day 12:
+- OTT subscription, subscriptions, ₹199
+
+Day 14:
+- Laundry, needs, ₹180
+
+Day 15:
+- Grocery restock, groceries, ₹1,100
+
+Day 16:
+- Music subscription, subscriptions, ₹119
+
+Day 20:
+- Grocery restock, groceries, ₹1,000
+
+Day 22:
+- Cloud storage, subscriptions, ₹75
+
+Day 24:
+- Project printout, education, ₹350
+
+Day 26:
+- Festival contribution, social, ₹500
+
+Goals:
+1. Emergency fund
+   - target ₹1,500
+   - saved ₹300
+   - protected true
+   - note: “Do not touch unless it is serious.”
+
+2. Festival savings
+   - target ₹900
+   - saved ₹0
+   - protected false
+   - note: “Optional, but wants to happen.”
+
+Subscriptions:
+1. OTT
+   - ₹199
+   - due day 12
+   - active
+
+2. Music
+   - ₹119
+   - due day 16
+   - active
+
+3. Cloud storage
+   - ₹75
+   - due day 22
+   - active
+
+Risks:
+1. Medical surprise
+   - amount ₹650
+   - probability 0.12
+   - expected around day 18
+
+2. Phone repair
+   - amount ₹900
+   - probability 0.08
+   - expected around day 24
+
+3. Friend’s wedding gift
+   - amount ₹800
+   - probability 0.10
+   - expected around day 27
+
+Decisions log should initially include one realistic past decision:
+- “Paused gaming subscription before month start. Saved ₹99.”
+
+This seed should create a tight but believable month. The user should feel pressure, but not instant failure.
+
+EDGE CASES
+Handle these carefully:
+- balance goes negative
+- no safe spend available
+- no upcoming income
+- user tries to withdraw from protected goal
+- user tries to apply an expense larger than balance
+- user cancels a subscription that was already included in forecast
+- user applies same simulation twice
+- localStorage is corrupted
+- all goals are unfunded
+- all subscriptions paused
+- current day is 30
+- current day is 1
+- forecast includes zero days left
+- risk score and health score need clamping
+
+If user tries an expense larger than balance:
+- allow simulation
+- show strong warning
+- require explicit confirmation to apply
+- show which day becomes dangerous
+
+If state is corrupted:
+- reset to seed state safely and show a small notice:
+  “Saved data looked broken, so we restored the demo month.”
+
+PERSISTENCE
+Use localStorage key:
+bbf-state-v1
+
+Persist:
+- profile
+- ledger
+- commitments
+- subscriptions
+- goals
+- risks
+- decisionsLog
+- current simulation if useful
+
+Do not persist:
+- transient toast state
+- modal open state unless helpful
+
+Include:
+- Reset demo
+- Export data as JSON
+- Import data from JSON if easy to implement cleanly
+
+If import/export is included:
+- validate imported shape before applying
+- reject invalid file with toast
+
+ACCESSIBILITY
+- All interactive elements must be keyboard accessible.
+- Use real buttons, not divs pretending to be buttons.
+- Visible focus rings.
+- ARIA labels for icon-only buttons.
+- ARIA labels for meters and gauges.
+- Provide text summary for charts.
+- Sufficient color contrast.
+- Do not rely on color alone to communicate danger.
+- Labels for all form fields.
+- Modal focus trapping and Escape to close.
+- Toasts should not be the only way to understand a critical outcome.
+
+PERFORMANCE
+- Keep bundle light.
+- Avoid unnecessary re-renders.
+- Use pure selectors.
+- Memoize derived state where appropriate.
+- No heavy animation loops.
+- No external images.
+- App should feel instant.
+
+TESTING
+Add unit tests for pure engine functions:
+- getCurrentBalance
+- getSafeToSpendToday
+- getForecast
+- getRiskScore
+- getHealthScore
+- simulateDecision
+
+Tests should cover at least:
+- normal month
+- negative balance
+- no upcoming income
+- subscription pause reduces outflow
+- emergency expense increases risk
+- applying income improves runway
+
+Make sure:
+npm test
+works if included.
+
+If test setup would risk breaking the app, prioritize a working app but still include the engine tests in a clean way.
+
+README.md REQUIREMENTS
+README must include:
+- project name
+- one-paragraph product description
+- how to run
+- how to build
+- how to test
+- product decisions
+- money engine formulas
+- risk score explanation
+- health score explanation
+- seed demo explanation
+- 2-minute demo script for judges
+- known limitations if any
+
+The README should sound like a human product team wrote it.
+
+2-MINUTE DEMO SCRIPT TO INCLUDE IN README
+Write a demo script like:
+1. Open app on Day 8 with ₹5,640 left.
+2. Show safe-to-spend and danger day strip.
+3. Simulate buying a concert ticket and show the month breaking.
+4. Simulate pausing OTT and taking a freelance gig.
+5. Show risk fall and runway improve.
+6. Apply the better decision and show Decision Receipt.
+7. End on health score and forecast recovery.
+
+ACCEPTANCE CRITERIA
+The app is only complete if:
+- it runs locally without errors
+- demo data loads immediately
+- dashboard shows connected metrics
+- simulate tab can compare before/after
+- applying a simulation updates all metrics
+- forecast chart updates
+- risk and health scores update
+- danger day strip updates
+- goals and subscriptions can affect the month
+- localStorage persistence works
+- reset demo works
+- mobile layout works
+- no copy feels generic or AI-generated
+- all numbers are internally consistent
+
+FINAL OUTPUT INSTRUCTIONS
+Generate all files needed for the project.
+Do not explain the code unless necessary.
+Do not stop at partial scaffolding.
+Do not leave missing imports.
+Do not leave broken references.
+Do not use placeholder components.
+Do not use fake data text like “Sample item”.
+Make the app fully functional and demo-ready.
+
+If you need to make a judgment call, choose the option that makes the product feel more real, more connected, and more useful.
+
+When finished, provide:
+1. the full file tree
+2. all file contents
+3. commands to run
+4. any assumptions made
+
+If output length limits prevent finishing everything, continue file by file without restarting or changing the product requirements.
+
+## CRITICAL: HACKATHON DEPLOYMENT REQUIREMENT
+
+This project must be fully deployable to Vercel and accessible through a public HTTPS link for hackathon evaluation.
+
+Use Next.js, React, TypeScript, and Tailwind CSS.
+
+Do not introduce Supabase, Firebase, authentication, a database, or a separate backend unless technically necessary.
+
+Implement the complete financial simulation engine on the client side using accurate TypeScript calculations.
+
+Use browser localStorage for persistent user data, with a versioned storage schema and safe initial loading.
+
+The application must launch directly into a polished, interactive ₹10,000 / 30-day demo without requiring registration or setup.
+
+Every feature must work in the deployed website, including financial simulations, transactions, subscriptions, savings goals, forecasts, financial health calculations, and resetting the demo.
+
+Ensure the application:
+
+1. Passes `npm run build`.
+2. Does not depend on localhost URLs or private API credentials.
+3. Runs correctly on Vercel.
+4. Has no hydration or runtime errors.
+5. Works on desktop and mobile.
+6. Handles refreshes without losing locally stored changes.
+7. Provides a one-click Reset Demo feature.
+8. Includes instructions for deploying to Vercel through GitHub.
+
+The final product must be a complete, publicly accessible, demo-ready fintech application, not a prototype requiring local development tools.
+
+Prioritize exceptional design, flawless interactions, accurate financial logic, and reliable deployment over unnecessary backend infrastructure.

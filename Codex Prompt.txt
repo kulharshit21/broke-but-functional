@@ -1,0 +1,1553 @@
+# MASTER CODEX PROMPT — BUILD A HACKATHON-WINNING FINTECH APPLICATION
+
+## PROJECT: BROKE BUT FUNCTIONAL — SURVIVE THE MONTH
+
+### YOUR ROLE
+
+You are an elite founding product engineer, senior fintech architect, award-winning UI/UX designer, and frontend engineering lead.
+
+Your assignment is to **design, implement, test, and deliver a complete, exceptional, production-quality interactive web application** called:
+
+**Broke But Functional — Survive the Month**
+
+This is a hackathon competition project. The objective is to build something that judges immediately recognize as genuinely useful, technically sophisticated, beautifully designed, and different from ordinary student projects.
+
+This must feel like a polished consumer fintech startup product, not a classroom assignment, template dashboard, or typical AI-generated website.
+
+**You are responsible for the entire implementation, from initial repository inspection through final working application and verification.**
+
+Do not merely provide a development plan, pseudocode, mockup, or static interface. Write the actual code, implement all major features, run the application, test the functionality, and fix issues.
+
+Work autonomously and make strong engineering and design decisions. Do not ask me repetitive questions.
+
+---
+
+# 1. UNDERSTAND THE CORE PROBLEM
+
+## Problem Statement
+
+Build a modern, interactive personal finance experience for Gen Z that helps users manage a limited ₹10,000 budget over 30 days and make informed financial decisions.
+
+The application must go beyond basic expense tracking by connecting:
+
+- Income and available cash
+- Current account balance
+- Daily and cumulative spending
+- Essential and discretionary expenses
+- Upcoming financial commitments
+- Recurring subscriptions
+- Savings goals
+- Unexpected expenses
+- Future cash-flow projections
+- Spending behavior
+- Financial risk
+- Overall financial health
+
+Users must be able to simulate financial decisions before making them and clearly understand how those decisions affect their remaining balance, daily allowance, savings goals, monthly forecast, financial risk, and overall financial health.
+
+### The fundamental product philosophy
+
+**Every financial decision has consequences, and those consequences must be immediately visible.**
+
+If a user spends ₹1,500 on a spontaneous night out, the application must not simply subtract ₹1,500 from the balance.
+
+It must also show:
+
+1. The change in spendable cash.
+2. The reduction in safe daily spending allowance.
+3. Whether upcoming bills remain affordable.
+4. How the projected month-end balance changes.
+5. Whether their savings goal becomes harder to achieve.
+6. Whether the risk of running short of money increases.
+7. How their financial health score changes.
+8. What adjustments could help recover.
+
+These values must come from **one consistent financial calculation engine** rather than separately hardcoded dashboard metrics.
+
+---
+
+# 2. THE EXPERIENCE WE ARE BUILDING
+
+## Product positioning
+
+This is a financial survival companion for students, interns, fresh graduates, and young working professionals.
+
+It should feel smart, honest, slightly playful, and emotionally aware without being childish.
+
+The experience should communicate:
+
+**“Your money has a story. See what happens before you spend it.”**
+
+The application should feel like a combination of:
+
+- A premium digital banking dashboard
+- An interactive financial planning tool
+- A spending decision simulator
+- A financial wellness companion
+- A beautifully visualized 30-day survival challenge
+
+Avoid making the experience too corporate, too gamified, or too complicated.
+
+A user should understand their immediate situation within five seconds and discover the power of the simulator within thirty seconds.
+
+---
+
+# 3. DESIGN DIRECTION — THIS IS EXTREMELY IMPORTANT
+
+## Make the UI feel human-designed, distinctive, and premium
+
+I do not want the visual appearance of a typical AI-generated web application.
+
+Avoid:
+
+- Generic purple gradients
+- Repetitive rounded cards everywhere
+- Excessive glassmorphism
+- Identical-looking dashboard widgets
+- Random colorful icons
+- Stock imagery
+- Overused financial dashboard layouts
+- Huge empty hero sections
+- Fake buttons or nonfunctional interactions
+- Generic descriptions and filler text
+- Inconsistent spacing
+- Excessive emojis
+- Bland typography
+- Visual clutter masquerading as complexity
+
+Instead, create an original, cohesive design system.
+
+### Recommended aesthetic
+
+**Editorial fintech meets playful Gen Z money management.**
+
+Use a confident, highly intentional visual language:
+
+- Deep charcoal or ink-colored surfaces
+- Warm off-white or paper-colored supporting surfaces
+- A striking electric-lime accent for positive financial actions
+- A restrained coral/red accent for financial danger
+- Strong typography and excellent numerical hierarchy
+- Carefully balanced whitespace
+- Refined borders and subtle shadows
+- Clean, custom-feeling data visualizations
+- Small expressive microinteractions
+- Strong mobile usability
+
+You may choose a superior cohesive palette if it better serves the design. Do not blindly follow a default component library theme.
+
+Choose typography deliberately. Use an expressive display face for major statements and highly readable typography for financial data. Make numbers feel important. Use tabular numerals where appropriate.
+
+### The emotional design
+
+Financial management can be stressful.
+
+The interface should communicate consequences clearly without shaming the user.
+
+Examples of the desired tone:
+
+- “You're doing better than you think.”
+- “₹420 is safe to spend today.”
+- “This purchase puts Friday's bill at risk.”
+- “You have breathing room.”
+- “Your future self might appreciate that.”
+- “Three subscriptions are quietly eating your budget.”
+- “That purchase is possible. Here's the trade-off.”
+
+Avoid guilt-based messages and exaggerated claims.
+
+### Signature design element
+
+Create a distinctive **30-Day Survival Timeline**.
+
+This should be a memorable visual component representing the user's entire budget journey.
+
+It should display:
+
+- The current simulated day
+- Days already completed
+- Remaining days
+- Payday and income events
+- Upcoming bills
+- Subscription renewal dates
+- Savings milestones
+- Projected danger points
+- Unexpected expenses
+- Positive financial milestones
+
+Clicking or hovering over meaningful dates should reveal understandable information.
+
+The visualization should feel handcrafted and should be one of the elements judges remember.
+
+---
+
+# 4. APPLICATION STRUCTURE
+
+Build a complete responsive application with a clear and consistent navigation system.
+
+The main experiences are:
+
+## A. THE COMMAND CENTER — MAIN DASHBOARD
+
+This is the first screen judges see. Make it exceptional.
+
+The main dashboard must answer:
+
+**“How am I doing financially right now?”**
+
+### Primary hero area
+
+Display the current financial position with a powerful visual hierarchy.
+
+Include:
+
+**Current Balance**
+
+Money actually available in the user's main spending account.
+
+**Safe to Spend Today**
+
+The amount that can reasonably be spent today without ignoring future essential commitments or reserved savings.
+
+**Days Left**
+
+Remaining days in the 30-day challenge.
+
+**Projected Month-End Balance**
+
+The expected remaining balance based on actual expenses, scheduled commitments, and forecast discretionary spending.
+
+**Financial Health Score**
+
+A dynamic, explainable score from 0 to 100.
+
+**Survival Status**
+
+A human-readable status such as:
+
+- Comfortable
+- On Track
+- Tight
+- At Risk
+- Critical
+
+The score and status must change consistently as financial conditions change.
+
+### Dashboard sections
+
+Include a thoughtfully organized selection of:
+
+1. Financial survival timeline.
+2. Actual vs expected spending.
+3. Money already committed to upcoming bills.
+4. Category spending breakdown.
+5. Upcoming payments and subscriptions.
+6. Savings goal progress.
+7. Financial health explanation.
+8. Key warnings and opportunities.
+9. Quick actions.
+10. Clear access to the Decision Simulator.
+
+Make the dashboard scannable.
+
+Not every metric needs to be a separate card. Use visual composition and hierarchy.
+
+### Financial health insights
+
+Include an intelligent insight section that produces messages from actual application state.
+
+Example:
+
+“You have ₹2,100 in upcoming essentials. Your discretionary spending has been slightly above your planned pace, so keeping daily spending below ₹185 would protect your month-end buffer.”
+
+This must be calculated from financial data, not a fixed scripted message.
+
+---
+
+# 5. THE HERO FEATURE — FINANCIAL DECISION SIMULATOR
+
+## This should be the biggest competitive advantage.
+
+Call it:
+
+**The What-If Lab**
+
+Possible supporting text:
+
+“Test the decision. See the damage. Keep your options.”
+
+The simulator should be highly interactive and visually impressive.
+
+### Core interaction
+
+Allow users to simulate decisions such as:
+
+- Buying something expensive
+- Going out with friends
+- Ordering food
+- Starting a subscription
+- Cancelling a subscription
+- Paying a bill early
+- Receiving extra income
+- Setting aside money for savings
+- Increasing an existing savings goal contribution
+- Facing an emergency expense
+- Delaying a discretionary purchase
+- Reducing future discretionary spending
+
+### Simulator inputs
+
+Include appropriate controls:
+
+- Financial decision type
+- Amount in INR
+- Date of the decision
+- Expense category
+- Essential or nonessential classification
+- Recurrence frequency where relevant
+- Optional description
+
+Use an elegant combination of amount inputs, selectors, preset options, and sliders.
+
+### Quick scenario presets
+
+Provide clickable examples such as:
+
+- ₹299 food delivery
+- ₹799 shopping purchase
+- ₹1,500 weekend outing
+- ₹499 new monthly subscription
+- ₹2,000 unexpected medical expense
+- ₹1,000 freelance income
+- Cancel an existing subscription
+
+These must perform real financial calculations.
+
+### Live impact visualization
+
+When the user changes a simulator input, instantly recalculate and display:
+
+| Financial metric | Before | After |
+|---|---|---|
+| Current/forecast balance | Baseline | Scenario |
+| Safe daily allowance | Baseline | Scenario |
+| Month-end projection | Baseline | Scenario |
+| Savings goal outlook | Baseline | Scenario |
+| Financial health score | Baseline | Scenario |
+| Risk level | Baseline | Scenario |
+
+Show clear positive or negative deltas.
+
+**Important:** A future-dated transaction must not incorrectly reduce today's actual balance. Instead, show its effect on future cash flow and projected spendable money.
+
+### Visual comparison
+
+Create a beautiful before-vs-after projection chart.
+
+Include two visually distinct forecast trajectories:
+
+- Current path
+- Simulated path
+
+Allow users to clearly identify:
+
+- When the simulated transaction happens
+- When important bills are due
+- How much money remains over time
+- Whether the projection goes below zero
+- How much the projected ending balance changes
+
+Subtle animation can help users understand the transition.
+
+### Financial consequence storytelling
+
+Under the chart, generate an explanation based on the computed result.
+
+Example:
+
+“This ₹1,500 purchase reduces your projected month-end balance and leaves less money available per remaining day. Your internet bill still fits, but the emergency buffer becomes smaller.”
+
+Never generate unsupported or misleading claims.
+
+### Recovery suggestions
+
+Offer meaningful corrective actions, such as:
+
+- Reduce discretionary spending by ₹X for the remaining Y days.
+- Delay this purchase until after an upcoming bill.
+- Cancel a low-priority subscription.
+- Choose a smaller spending amount.
+- Lower the savings contribution temporarily, if appropriate.
+
+Recommendations must be mathematically linked to the scenario.
+
+### Compare multiple scenarios
+
+Provide the ability to compare at least two alternative choices where practical.
+
+Example:
+
+Option A: Spend ₹1,500 tonight.
+
+Option B: Spend ₹500 tonight.
+
+Show which option better preserves the user's daily spending allowance and projected balance.
+
+### Commit or discard
+
+The simulator must offer:
+
+**Apply This Decision**
+
+and
+
+**Discard Scenario**
+
+Applying a decision should update the appropriate transaction, subscription, or savings state.
+
+Discarding should leave the original financial state untouched.
+
+Make it possible to undo the most recently applied decision.
+
+This interaction must work correctly.
+
+---
+
+# 6. FINANCIAL ENGINE — MOST IMPORTANT TECHNICAL REQUIREMENT
+
+Build a centralized, deterministic financial calculation engine.
+
+This is not simply a frontend with mocked KPI values.
+
+The financial engine should be a well-structured, testable TypeScript module separated from the UI.
+
+## Data modeling
+
+Model at least:
+
+### Financial profile
+
+- Opening balance
+- Challenge start date
+- Challenge duration: 30 days
+- Current simulated date
+- Spending preferences or category budgets
+- Desired cash safety buffer
+
+### Transactions
+
+- Unique ID
+- Description
+- Amount
+- Category
+- Transaction type
+- Transaction date
+- Actual or planned status
+- Essential/discretionary classification
+- Optional linked subscription/commitment ID
+
+### Commitments
+
+- Name
+- Amount
+- Due date
+- Essential/discretionary classification
+- Status
+- Optional recurrence
+
+### Subscriptions
+
+- Name
+- Cost
+- Billing interval
+- Next billing date
+- Active, paused, or cancelled status
+- Category
+
+### Savings goals
+
+- Name
+- Target amount
+- Current saved amount
+- Target date
+- Planned contributions
+
+### Financial scenarios
+
+- Base state
+- One or more hypothetical financial changes
+- Projected outcome
+- Summary of consequences
+
+## Numerical accuracy
+
+Use integer paise internally to avoid floating-point errors when handling money.
+
+Format displayed currency using Indian formatting conventions and the ₹ symbol.
+
+Examples:
+
+₹10,000
+
+₹1,249
+
+₹199.50
+
+Round only at well-defined display or conversion boundaries.
+
+### Distinguish the following concepts
+
+Do not mix these up:
+
+**Current balance:** Actual money currently in the spending account.
+
+**Upcoming commitments:** Bills not yet paid.
+
+**Reserved savings:** Money intentionally allocated to savings rather than freely spendable cash.
+
+**Safe-to-spend amount:** The portion of money reasonably available after future obligations and planned reserves are considered.
+
+**Projected balance:** The future expected balance calculated from scheduled income, expenses, and estimated spending.
+
+**Total cash:** Spending-account money plus savings balances where relevant.
+
+A savings transfer should reduce the spending account but increase the saved balance. It must not incorrectly destroy the user's total money.
+
+A bill should not be counted twice as both a paid expense and an unpaid future commitment.
+
+A cancelled subscription must not continue affecting future projections beyond its effective cancellation date.
+
+A scenario should not mutate actual state until it is explicitly applied.
+
+---
+
+# 7. FINANCIAL CALCULATIONS
+
+Implement meaningful, explainable formulas.
+
+## A. Remaining budget
+
+Calculate the amount actually available after relevant obligations and allocations.
+
+## B. Safe daily allowance
+
+A useful initial approach:
+
+Safe daily allowance = max(0, spendable cash after remaining essential commitments, planned savings allocations, and safety buffer) / remaining days
+
+Include expected income only according to its timing and an explicitly defined forecast policy.
+
+Do not allow the algorithm to assume future income can pay a bill due before that income arrives.
+
+Handle periods where cash is insufficient with a clear warning.
+
+## C. Daily cash-flow forecast
+
+Generate a date-by-date projected balance through the end of the challenge.
+
+For each day, account for:
+
+- Actual transactions
+- Future scheduled income
+- Upcoming commitments
+- Subscription billing
+- Savings contributions
+- Estimated discretionary expenses
+- Applied hypothetical events
+
+Ensure each event is counted exactly once.
+
+## D. Spending pace
+
+Compare actual cumulative discretionary spending against the available planned spending envelope for elapsed days.
+
+Explain overspending or underspending without misrepresenting essential commitments.
+
+## E. Burn rate and runway
+
+Calculate recent average variable spending and a useful estimated runway.
+
+Use a clearly documented deterministic heuristic such as a recent seven-day spending average with a reasonable fallback for insufficient history.
+
+Avoid claiming to use predictive AI or machine learning unless an actual working model is implemented.
+
+## F. Financial Health Score
+
+Create a transparent score between 0 and 100.
+
+It should consider clearly defined factors such as:
+
+- Ability to cover future essentials
+- Projected minimum cash balance
+- Spending pace
+- Available safety buffer
+- Savings progress relative to plan
+
+Use documented weights, bounded normalization, and edge-case handling.
+
+Show users why their score changed.
+
+A change that worsens the overall financial position should not arbitrarily improve financial health without a defensible offsetting factor.
+
+## G. Risk detection
+
+Detect issues such as:
+
+- Projected negative balance
+- Unaffordable upcoming essential payments
+- A dangerously small safety buffer
+- Excessive discretionary spending pace
+- Subscriptions consuming an unusually large share of spendable cash
+- Savings contributions that are no longer feasible
+
+Assign understandable warning levels.
+
+Do not invent statistically precise bankruptcy probabilities or fake AI confidence percentages.
+
+Financial risk labels should be supported by explicit thresholds and deterministic forecasts.
+
+---
+
+# 8. EXPENSE TRACKER — FULLY FUNCTIONAL
+
+Create a polished transaction management experience.
+
+Users must be able to:
+
+- Add expenses
+- Add income
+- Edit transactions
+- Delete transactions
+- Categorize transactions
+- Mark items essential or discretionary
+- Filter by date
+- Filter by category
+- Search transactions
+- Inspect spending details
+
+Suggested categories:
+
+- Food and drinks
+- Groceries
+- Transport
+- Rent and accommodation
+- Entertainment
+- Shopping
+- Education
+- Health
+- Subscriptions
+- Miscellaneous
+
+Use a tasteful, consistent category icon system.
+
+Include:
+
+- Spending distribution visualization
+- Recent transactions
+- Daily spending trends
+- Actual vs planned category spending
+- Useful category-specific insights
+
+Adding or deleting a transaction must update every relevant dashboard metric.
+
+Use meaningful empty states and validation.
+
+---
+
+# 9. SUBSCRIPTIONS AND UPCOMING COMMITMENTS
+
+Create a dedicated area for financial obligations.
+
+Users should see:
+
+- Total upcoming committed amount
+- Upcoming due dates
+- Active subscriptions
+- Total expected subscription cost within the 30-day period
+- Bills already paid
+- Future commitments
+
+Support:
+
+- Add/edit/delete a commitment
+- Mark a bill as paid
+- Add a subscription
+- Cancel or pause a subscription
+- Change its price
+- Inspect its future budget impact
+
+When a bill is marked paid, record the corresponding cash movement without double-counting it.
+
+When a subscription is cancelled, recalculate future forecasts.
+
+### Subscription insight
+
+Show a useful summary such as:
+
+“Your active subscriptions are projected to cost ₹X during this challenge.”
+
+Optional extra polish:
+
+Add a small interaction showing the financial benefit of cancelling a subscription before the next renewal.
+
+---
+
+# 10. SAVINGS GOALS
+
+Savings should feel like a meaningful financial decision, not just a progress bar.
+
+Allow users to:
+
+- Create a savings goal
+- Set a target
+- Set a target date
+- Allocate money toward it
+- Modify contributions
+- See remaining progress
+- Understand the impact on daily spendable cash
+
+Examples:
+
+- Emergency buffer
+- New headphones
+- Weekend trip
+- Laptop fund
+
+### Goal feasibility
+
+Show whether the current plan is likely to reach the target, based on:
+
+- Amount already saved
+- Planned contributions
+- Projected available cash
+- Time remaining
+
+Avoid pretending that uncommitted or unallocated money has already been saved.
+
+Include a visual goal progress treatment that feels special.
+
+---
+
+# 11. FINANCIAL EMERGENCY MODE
+
+Implement an engaging feature called:
+
+**“Life Happens.”**
+
+This feature simulates unexpected financial events.
+
+Examples:
+
+- Phone repair: ₹2,500
+- Medical expense: ₹1,200
+- Emergency travel: ₹1,800
+- Unexpected refund: +₹700
+- Bonus freelance payment: +₹2,000
+
+The experience should immediately show:
+
+- How the event changes the forecast
+- Whether essentials are still covered
+- The new safe spending allowance
+- Whether savings contributions remain feasible
+- Which recovery actions could help
+
+Design this as part of the same financial simulator architecture instead of duplicating logic.
+
+Include a prominent reset/restore option for demonstration.
+
+---
+
+# 12. THE 30-DAY MONEY JOURNEY
+
+Make the application feel like a journey through a month rather than a collection of unrelated financial screens.
+
+## Day selector
+
+Allow users to simulate different days of the 30-day challenge.
+
+Suggested control:
+
+An interactive slider or timeline control.
+
+Show:
+
+**DAY 11 / 30**
+
+As the day changes, update the relevant current-day view, past spending, future commitments, remaining days, and forecast.
+
+Implement a coherent distinction between moving the demonstration's observation date and actually posting transactions. Moving the timeline must not silently duplicate, pay, or delete transactions.
+
+### The journey visualization
+
+The timeline should illustrate:
+
+- Days survived
+- Spending intensity
+- Important incoming money
+- Important outgoing money
+- Future risk zones
+- Savings milestones
+
+This can be one of the application's signature visual experiences.
+
+---
+
+# 13. INSIGHTS ENGINE
+
+Build a lightweight deterministic insights engine.
+
+It should analyze financial state and produce actionable observations.
+
+Examples:
+
+**Overspending insight**
+
+“Food spending is above your planned pace this week.”
+
+**Commitment warning**
+
+“An essential payment is due soon. Keeping ₹X available will help cover it.”
+
+**Positive momentum**
+
+“You're spending below your recent average and have created more breathing room.”
+
+**Subscription observation**
+
+“Pausing this subscription would preserve ₹X before the end of your challenge.”
+
+**Savings insight**
+
+“Your current contribution schedule is behind the pace needed for your goal.”
+
+Each insight must have:
+
+- A clear trigger
+- A priority
+- A relevant metric
+- A concise explanation
+- An action where useful
+
+Do not use random text or fake intelligence.
+
+The insights engine should be centralized so the dashboard and simulator can use the same logic.
+
+---
+
+# 14. ONBOARDING
+
+Create a short, memorable onboarding experience for first-time users.
+
+Do not make users complete a long financial questionnaire.
+
+The key inputs should be:
+
+- Starting balance, default ₹10,000
+- Challenge duration, default 30 days
+- Essential commitments
+- Optional savings target
+- Optional expected income
+
+Offer two entry paths:
+
+**Try Demo**
+
+Instantly load a rich, realistic example.
+
+**Start My Own Month**
+
+Begin with a customizable financial setup.
+
+The demo path should be the default for hackathon evaluation, because judges should be able to explore a compelling interface without typing anything.
+
+The onboarding should feel premium but take less than a minute to complete.
+
+---
+
+# 15. DEMO DATA — IMPORTANT FOR JUDGING
+
+Create a realistic, internally consistent financial scenario.
+
+The default user is a young adult managing ₹10,000 across 30 days.
+
+Prepare a believable mixture of:
+
+- Small everyday purchases
+- Food expenses
+- Transport expenses
+- A few discretionary purchases
+- Upcoming essential bills
+- One or two subscriptions
+- A modest savings goal
+- A credible spending pattern
+
+Start the main demonstration at a meaningful simulated day, such as Day 11, with a mixture of completed transactions and upcoming commitments.
+
+The dataset should produce interesting financial insights while allowing judges to test both positive and negative scenarios.
+
+All figures must be calculated from the seeded financial state.
+
+Do not hardcode fake summary values that disagree with the transaction history.
+
+Include a visible:
+
+**Reset Demo**
+
+action that reliably restores the seed data.
+
+Persist user changes locally between refreshes until the demo is reset.
+
+---
+
+# 16. TECHNOLOGY STACK
+
+First inspect the existing repository.
+
+Respect its established tools and architecture where reasonable.
+
+If there is no existing application, use an appropriate modern stack such as:
+
+- Next.js with App Router
+- React
+- TypeScript
+- Tailwind CSS
+- A small set of well-customized accessible UI primitives
+- Lucide icons
+- Recharts or another suitable interactive charting library
+- Motion/Framer Motion for purposeful animations
+- Lightweight state management such as Zustand or React Context
+- LocalStorage or IndexedDB for persistent demo state
+- Vitest or equivalent for unit testing
+- Playwright where browser-level testing is available
+
+Use compatible, stable library versions and follow current conventions.
+
+You can make architectural choices differently if the existing repository justifies them.
+
+### Avoid unnecessary complexity
+
+The application should run locally without:
+
+- Paid APIs
+- Bank credentials
+- Real banking integrations
+- External authentication
+- Secret keys
+- Mandatory cloud services
+- Network-dependent financial calculations
+
+Build a fully working demo mode.
+
+Do not present local-only persistence as secure cloud storage.
+
+Make the architecture ready for future backend integration without implementing an unnecessary backend now.
+
+---
+
+# 17. APPLICATION ARCHITECTURE
+
+Keep calculations, application state, and presentation separated.
+
+Use a sensible project structure, for example:
+
+src/
+- app/ or pages/
+- components/
+  - layout/
+  - dashboard/
+  - simulator/
+  - timeline/
+  - charts/
+  - transactions/
+  - savings/
+  - subscriptions/
+  - ui/
+- features/
+- domain/
+  - financial-types
+  - financial-engine
+  - forecasting
+  - health-score
+  - risk-engine
+  - insights-engine
+  - scenarios
+- data/
+  - demo-data
+- hooks/
+- store/
+- lib/
+- tests/
+
+Adapt the naming to the selected framework.
+
+### Requirements
+
+- Strong TypeScript types
+- Pure financial calculation functions
+- Reusable and composable UI components
+- Sensible state management
+- No duplicated financial formulas
+- No arbitrary global mutable state
+- No massive single-file application
+- No excessive dependency installation
+- No stale calculations
+- No uncontrolled effects that cause rendering loops
+- No silent corruption of financial data
+
+Use a single source of truth.
+
+Derived calculations should be performed through the financial engine.
+
+---
+
+# 18. VISUALIZATION QUALITY
+
+Charts should tell a story.
+
+Include a coherent selection of:
+
+### Cash-flow forecast
+
+An interactive daily line/area chart showing projected cash through the remaining challenge.
+
+### Actual vs planned spending
+
+Show progress against the spending envelope.
+
+### Spending category visualization
+
+A clean donut, horizontal bar, or another appropriate visual format.
+
+### Financial health
+
+A distinctive score display with supporting explanations.
+
+### Survival timeline
+
+A custom-designed 30-day visualization that becomes part of the product identity.
+
+### Scenario impact visualization
+
+Before-and-after cash-flow paths with clear labeling.
+
+Every chart must have:
+
+- Proper INR formatting
+- Clear legends
+- Understandable axes
+- Appropriate tooltips
+- Helpful empty states
+- Readable mobile behavior
+
+Avoid decorative charts that do not provide useful information.
+
+---
+
+# 19. MICROINTERACTIONS AND PRODUCT POLISH
+
+Apply purposeful motion throughout the experience.
+
+Examples:
+
+- Smooth metric transitions when simulating expenses
+- Animated forecast changes
+- Elegant panel transitions
+- Subtle timeline interactions
+- Success feedback when saving a transaction
+- Meaningful warning states
+- Refined hover and focus behaviors
+- Smooth, accessible modal interactions
+
+Keep animations short and sophisticated.
+
+Respect reduced-motion preferences.
+
+Ensure the product never feels slow or distracting.
+
+### Additional polish
+
+Include:
+
+- Helpful tooltips
+- Confirmation for destructive operations
+- Toast feedback
+- Good default input values
+- Clear inline validation
+- Loading or transition states where necessary
+- Accessible keyboard interactions
+- Consistent icons
+- Strong empty states
+- Subtle visual hierarchy
+- Responsive navigation
+- Consistent button treatments
+- Clear distinction between interactive and noninteractive elements
+
+No dead controls.
+
+No buttons that do nothing.
+
+No fake functionality.
+
+---
+
+# 20. MOBILE RESPONSIVENESS
+
+The application must feel intentionally designed for mobile, not merely squeezed from desktop.
+
+Support:
+
+- Desktop
+- Tablet
+- Mobile
+
+Use a thoughtful layout transformation.
+
+On desktop, an elegant navigation rail/sidebar may work well.
+
+On mobile, consider a compact bottom navigation or another appropriate mobile-first treatment.
+
+The simulator must remain usable on a narrow viewport.
+
+Do not allow charts, tables, or input controls to overflow horizontally.
+
+Maintain excellent tap target sizes and readability.
+
+---
+
+# 21. ACCESSIBILITY AND USER EXPERIENCE
+
+Implement sensible accessibility standards.
+
+Include:
+
+- Keyboard-accessible controls
+- Visible focus indicators
+- Appropriate semantic HTML
+- Accessible labels
+- Readable color contrast
+- Screen-reader-friendly financial changes where practical
+- Reduced-motion support
+- Understandable validation messages
+
+Do not use color alone to communicate financial risk.
+
+Always combine color with labels, numerical information, or icons where needed.
+
+---
+
+# 22. THREE SIGNATURE “WOW MOMENTS”
+
+I want at least three memorable product moments.
+
+## WOW MOMENT 1 — THE PURCHASE CONSEQUENCE
+
+A judge enters:
+
+“I want to spend ₹1,500 tonight.”
+
+Immediately, the application shows the entire financial impact:
+
+- New daily allowance
+- Changed cash-flow forecast
+- Financial health change
+- Risk impact
+- Savings implications
+- One practical recovery option
+
+The response should feel immediate and powerful.
+
+## WOW MOMENT 2 — THE FUTURE TIMELINE
+
+The judge explores the 30-day journey and sees upcoming bills, income, spending, and risk points visually arranged across time.
+
+The user should understand why the month becomes financially difficult on particular days.
+
+## WOW MOMENT 3 — THE FINANCIAL RECOVERY
+
+The judge simulates an unexpected ₹2,500 expense.
+
+The application shows the damage.
+
+Then the judge adjusts spending or cancels a subscription and can immediately see how much that action helps recover.
+
+This should communicate the core concept:
+
+**Financial decisions are interconnected, and users can explore trade-offs before committing.**
+
+Make these moments feel seamless, not like separate prototypes.
+
+---
+
+# 23. PRIORITIZATION — QUALITY OVER FEATURE COUNT
+
+Do not build twenty shallow features.
+
+Prioritize the following in order:
+
+**Priority 1 — Must be exceptional**
+
+- Premium, distinctive dashboard
+- Correct centralized financial engine
+- Fully functional what-if simulator
+- Interactive before-and-after cash-flow visualization
+- Dynamic daily allowance
+- Explainable financial health and risk
+- Compelling demo data
+- Responsive design
+
+**Priority 2 — Must work well**
+
+- Expense and income management
+- Subscriptions and commitments
+- Savings goals
+- Unexpected expense simulator
+- Timeline navigation
+- Local persistence
+- Reset demo
+
+**Priority 3 — Polish and differentiation**
+
+- Advanced insights
+- Scenario comparison
+- Smart recovery suggestions
+- Refined animations
+- Additional data visualizations
+- Onboarding details
+
+If time or environment limitations exist, finish and properly verify the essential integrated experience before expanding optional features.
+
+Never sacrifice correctness or usability for animation or cosmetic novelty.
+
+---
+
+# 24. TESTING REQUIREMENTS
+
+Do not treat compilation as proof that the application works.
+
+Write meaningful tests for the financial engine.
+
+At minimum, verify:
+
+1. A normal expense reduces actual balance correctly.
+2. A future expense affects forecast without prematurely changing actual balance.
+3. Income increases the correct future cash balance.
+4. Upcoming bills are included exactly once.
+5. Marking a bill paid does not double-count it.
+6. Cancelling a subscription removes eligible future renewals.
+7. Savings transfers correctly affect spendable cash and savings balances.
+8. A hypothetical scenario does not mutate the baseline.
+9. Applying a decision produces the expected change.
+10. Discarding a decision preserves the original state.
+11. Changing a scenario amount recalculates connected metrics.
+12. Safe daily allowance handles zero remaining days.
+13. The model handles insufficient balance safely.
+14. The forecast handles negative projected balances.
+15. Score and risk outputs remain within defined bounds.
+16. Financial values never become NaN or Infinity.
+17. Indian currency formatting is correct.
+18. Reset demo restores a consistent baseline.
+19. Local persistence survives refresh.
+20. Undo restores the expected state.
+
+Also test edge cases involving same-day events, partially paid commitments, cancelled subscriptions, and multiple upcoming transactions.
+
+Where tooling permits, run browser-level smoke tests of the main user journey.
+
+Fix actual failures rather than merely documenting them.
+
+---
+
+# 25. END-TO-END DELIVERY PROCESS
+
+Execute the work in this order.
+
+## Phase 1 — Repository inspection
+
+Inspect:
+
+- Existing source files
+- Package configuration
+- Application architecture
+- Existing installed dependencies
+- Available testing setup
+- Current design implementation if one exists
+
+Understand what is available before making changes.
+
+## Phase 2 — Product and domain architecture
+
+Define:
+
+- Core data types
+- Cash-flow calculation logic
+- Scenario model
+- Health scoring
+- Risk rules
+- State ownership
+- Screen hierarchy
+- Design system
+
+Keep this efficient. Do not stop at planning.
+
+## Phase 3 — Build the functional engine
+
+Implement the financial domain first.
+
+Create deterministic demo data.
+
+Add calculation tests.
+
+## Phase 4 — Build the product interface
+
+Implement the dashboard, navigation, key data visualizations, and responsive layouts.
+
+Apply a cohesive visual language.
+
+## Phase 5 — Integrate all interactions
+
+Connect:
+
+- Transactions
+- Subscriptions
+- Savings
+- Financial forecasting
+- Scenarios
+- Health score
+- Risk analysis
+- Timeline
+
+Every meaningful user action should produce the correct downstream changes.
+
+## Phase 6 — Refine the experience
+
+Improve:
+
+- Information hierarchy
+- Typography
+- Interaction feedback
+- Animation quality
+- Chart readability
+- Empty states
+- Mobile experience
+
+## Phase 7 — Validate the product
+
+Run:
+
+- Dependency installation if necessary
+- Type checking
+- Linting
+- Unit tests
+- Production build
+- Browser smoke tests where supported
+
+Start the application and test the critical flows using available tools.
+
+If browser or screenshot inspection is available, inspect desktop and mobile layouts, find visual defects, and correct them.
+
+Do not claim testing was successful if it was not actually performed.
+
+## Phase 8 — Final delivery
+
+Deliver a working project and provide a concise implementation summary.
+
+---
+
+# 26. FINAL USER EXPERIENCE ACCEPTANCE CRITERIA
+
+The application is successful only if a judge can:
+
+1. Open the website and immediately see a beautiful, informative financial dashboard.
+2. Understand that they have a ₹10,000 starting budget across 30 days.
+3. Understand their current cash, upcoming obligations, and safe daily allowance.
+4. See an interactive financial journey timeline.
+5. Open the What-If Lab.
+6. Simulate a ₹1,500 purchase.
+7. See multiple financial metrics update accurately.
+8. See a before-and-after future cash-flow visualization.
+9. Understand whether the purchase affects bills, savings, and financial risk.
+10. Receive a relevant suggestion for improving the outcome.
+11. Apply or discard the simulated decision.
+12. Add an expense and see the dashboard update.
+13. Cancel or modify a subscription and see the forecast change.
+14. Explore a savings goal and understand the spending trade-off.
+15. Simulate an emergency expense.
+16. Navigate the application comfortably on mobile.
+17. Refresh without losing locally saved financial changes.
+18. Reset the demo to its original state.
+
+These must be real, working interactions.
+
+---
+
+# 27. HACKATHON PRESENTATION READINESS
+
+Design the application so that its power can be demonstrated in approximately 90 seconds.
+
+The ideal live demo flow:
+
+**0–15 seconds**
+
+Introduce the core dashboard and explain the daily survival allowance.
+
+**15–40 seconds**
+
+Open the What-If Lab and simulate an impulsive purchase.
+
+**40–60 seconds**
+
+Show the resulting change in financial forecast, risk, savings, and daily spending.
+
+**60–75 seconds**
+
+Simulate an emergency and demonstrate a recovery action.
+
+**75–90 seconds**
+
+Return to the 30-day timeline and show how the system connects all decisions.
+
+Create a `DEMO_GUIDE.md` containing the recommended demo flow and expected interactions.
+
+Also create a clear `README.md` explaining:
+
+- Project overview
+- Problem solved
+- Core features
+- Technology stack
+- Setup commands
+- Application architecture
+- Financial model assumptions
+- Test commands
+- Limitations
+- Suggested future improvements
+
+Keep the README professional, accurate, and useful.
+
+---
+
+# 28. IMPORTANT QUALITY RULES
+
+Follow these rules throughout development.
+
+**Rule 1:** Do not build a generic financial dashboard template.
+
+**Rule 2:** Do not generate fake functionality merely for screenshots.
+
+**Rule 3:** Do not hardcode financial values that should be calculated.
+
+**Rule 4:** Do not use misleading financial risk statistics.
+
+**Rule 5:** Do not misrepresent a heuristic as machine learning.
+
+**Rule 6:** Do not implement an unnecessary banking backend.
+
+**Rule 7:** Do not leave placeholder components, TODO panels, or dead navigation items in the final product.
+
+**Rule 8:** Do not use excessive generic cards, decorative gradients, or arbitrary animations.
+
+**Rule 9:** Do not compromise mathematical accuracy to make a visualization look good.
+
+**Rule 10:** Do not stop after creating the homepage.
+
+**Rule 11:** Do not claim a feature works without implementing it.
+
+**Rule 12:** Do not finish without running the available checks and fixing identified issues.
+
+**Rule 13:** Make copywriting specific, confident, and human.
+
+**Rule 14:** Make every major screen and interaction visually consistent.
+
+**Rule 15:** Keep the 30-day ₹10,000 challenge central to the experience.
+
+---
+
+# 29. WHAT MAKES THIS PRODUCT SPECIAL
+
+The central differentiator is:
+
+**This is not an app that tells you where your money went. It is an app that helps you understand where your money will go if you make a decision today.**
+
+Expense tracking is retrospective.
+
+This product is forward-looking.
+
+It should connect past actions, current resources, future obligations, hypothetical choices, and achievable recovery paths into one coherent financial picture.
+
+The user should feel more informed and more in control after using it.
+
+---
+
+# 30. FINAL INSTRUCTIONS — START BUILDING
+
+Take full ownership of the implementation.
+
+Inspect the repository and existing development environment first.
+
+Then build the complete application directly in the project files.
+
+Do not respond with only an implementation plan.
+
+Do not stop after creating a few components.
+
+Do not leave important interactive features mocked.
+
+Implement the core financial model carefully and ensure the dashboard, simulator, savings goals, commitments, and risk indicators are all connected to it.
+
+Make the user experience beautifully designed, surprisingly intuitive, visually memorable, and genuinely useful.
+
+At the end, report:
+
+1. What was implemented.
+2. Which main product interactions were verified.
+3. Which tests and build commands passed.
+4. How to run the project locally.
+5. Any remaining limitations, stated clearly.
+
+## THE QUALITY BAR
+
+Imagine the application is being judged against polished fintech startup prototypes, not ordinary student assignments.
+
+The judges should remember three things:
+
+**The design is exceptional.**
+
+**The financial simulation genuinely works.**
+
+**The product solves an actual problem in an intuitive way.**
+
+Build the strongest achievable version of **Broke But Functional — Survive the Month**.
+
+**Now inspect the repository, make the required technical decisions, and implement the project end to end.**
+
+
+## CRITICAL: HACKATHON DEPLOYMENT REQUIREMENT
+
+This project must be fully deployable to Vercel and accessible through a public HTTPS link for hackathon evaluation.
+
+Use Next.js, React, TypeScript, and Tailwind CSS.
+
+Do not introduce Supabase, Firebase, authentication, a database, or a separate backend unless technically necessary.
+
+Implement the complete financial simulation engine on the client side using accurate TypeScript calculations.
+
+Use browser localStorage for persistent user data, with a versioned storage schema and safe initial loading.
+
+The application must launch directly into a polished, interactive ₹10,000 / 30-day demo without requiring registration or setup.
+
+Every feature must work in the deployed website, including financial simulations, transactions, subscriptions, savings goals, forecasts, financial health calculations, and resetting the demo.
+
+Ensure the application:
+
+1. Passes `npm run build`.
+2. Does not depend on localhost URLs or private API credentials.
+3. Runs correctly on Vercel.
+4. Has no hydration or runtime errors.
+5. Works on desktop and mobile.
+6. Handles refreshes without losing locally stored changes.
+7. Provides a one-click Reset Demo feature.
+8. Includes instructions for deploying to Vercel through GitHub.
+
+The final product must be a complete, publicly accessible, demo-ready fintech application, not a prototype requiring local development tools.
+
+Prioritize exceptional design, flawless interactions, accurate financial logic, and reliable deployment over unnecessary backend infrastructure.
