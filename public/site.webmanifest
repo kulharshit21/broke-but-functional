@@ -1,0 +1,17 @@
+{
+  "name": "Broke But Functional",
+  "short_name": "BBF",
+  "description": "A candid 30-day money survival companion for making every rupee count.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f4f0e6",
+  "theme_color": "#103f2c",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
