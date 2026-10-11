@@ -405,8 +405,10 @@ function MobileNav({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
           aria-current={tab === t.id ? "page" : undefined}
           onClick={() => setTab(t.id)}
         >
-          <t.icon size={20} aria-hidden="true" />
-          <span>
+          <span className="nav-icon-wrap">
+            <t.icon size={20} aria-hidden="true" />
+          </span>
+          <span className="nav-label">
             {t.label === "What-If Lab"
               ? "Lab"
               : t.label === "Goals & Subs"
