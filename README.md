@@ -1,72 +1,159 @@
-# Broke But Functional — Survive the Month
+# Broke But Functional
 
-A candid, local-first financial survival companion for anyone stretching ₹10,000 across 30 days. Instead of logging a purchase after the damage is done, the What‑If Lab shows how a choice changes daily allowance, runway, danger days, savings, month-end balance, risk, and health before the user commits.
+### Survive the month. See the consequence before you spend.
 
-## Run it
+[![Live on Vercel](https://img.shields.io/badge/live-Vercel-171a17?style=for-the-badge&logo=vercel)](https://broke-but-functional-seven.vercel.app/)
+[![Product checks](https://img.shields.io/github/actions/workflow/status/kulharshit21/broke-but-functional/ci.yml?branch=main&style=for-the-badge&label=tests)](https://github.com/kulharshit21/broke-but-functional/actions)
+[![Next.js](https://img.shields.io/badge/Next.js-15-0e5b3a?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-c9f04c?style=for-the-badge)](./LICENSE)
+
+**Broke But Functional** is a local-first financial survival companion for Gen Z users stretching ₹10,000 across 30 days. It does not wait for a bad purchase to become history. The What‑If Lab shows how a decision changes cash, safe daily spend, commitments, runway, savings, danger days, risk, and financial health—before the user commits.
+
+> Most expense trackers tell you where your money went. This one tells you what happens next.
+
+## The product truth
+
+Every screen answers one question: **“What can I safely spend today without breaking the month?”**
+
+| What the user sees | What it actually means |
+|---|---|
+| Balance now | Cash already in the spending account |
+| Locked for bills | Future essential commitments and active subscriptions |
+| Protected savings | Money deliberately kept out of casual spending |
+| Safe to spend today | The share left after bills, buffer, savings and shock reserve |
+| Danger day | The first projected day below the minimum cash buffer |
+| Financial risk | Explainable pressure from the forecast—not a fake AI probability |
+
+## The five connected experiences
+
+1. **Today — the command centre.** A high-signal view of safe spend, balance, runway, committed cash, shock reserve, health, and the 30-day survival line.
+2. **What‑If Lab — the consequence engine.** Compare a concert ticket, freelance gig, emergency, BNPL purchase, subscription pause, savings transfer, or a custom amount without mutating real state.
+3. **30-Day Map — the money calendar.** Inspect future balances and schedule an expense or income event on the correct day without changing today’s cash.
+4. **Goals & Subs — protect and question.** Fund goals, preserve protected savings, and pause or resume recurring costs with immediate forecast feedback.
+5. **Ledger — the paper trail.** Search and filter completed or upcoming money moves, undo decisions, import/export data, and reset the demo.
+
+## Three moments built for the demo
+
+### 01 — The purchase consequence
+
+Choose **Buy concert ticket**. The current and simulated forecast paths separate in real time, the metric receipt quantifies every delta, and the recovery note says exactly how much daily spending must shrink.
+
+### 02 — The month has geography
+
+The handcrafted 30-day strip and calendar turn vague anxiety into specific dates: bills, subscription renewals, safe days, tight days and the first moment the buffer breaks.
+
+### 03 — Recovery feels possible
+
+Pause OTT or take the freelance gig. The same engine recalculates daily allowance, month-end cash, runway, risk and health. Apply the better move and the product issues a Decision Receipt.
+
+## One source of financial truth
+
+```text
+profile + ledger + commitments + subscriptions + goals + risks
+                              │
+                              ▼
+                   deterministic forecast
+                              │
+            ┌─────────────────┼─────────────────┐
+            ▼                 ▼                 ▼
+       safe daily        risk + health     30-day cashflow
+            │                 │                 │
+            └─────────────────┴─────────────────┘
+                              │
+                    every screen updates
+```
+
+All money uses **integer paise** internally. A future purchase affects future cash flow but never today’s actual balance. A savings transfer reduces spendable cash and increases the goal balance; it does not destroy total money. Paused subscriptions disappear from future outflows. Simulations stay non-destructive until Apply.
+
+### Core formula
+
+```text
+available for daily spending =
+  current balance
+  − essential commitments
+  − active subscriptions
+  − protected planned savings
+  − probability-weighted shock reserve
+  − minimum cash buffer
+
+safe daily spend = max(0, available for daily spending ÷ usable days left)
+```
+
+Shock reserve is 40% of probability-weighted exposure, capped at ₹1,500. Risk is a bounded 0–100 sum of danger days, negative month-end cash, near-term commitment pressure, shock exposure and subscription burden. Health weighs runway, cushion, savings progress, commitment coverage, spending discipline and shock readiness.
+
+## Demo state
+
+The app opens on **Day 8** with **₹5,640** left from the original ₹10,000. Rent, groceries, transport, utilities, a small freelance payment and chai are already in the books. Recharge, two grocery runs, three subscriptions, education costs, social commitments, two savings goals and three plausible shocks still lie ahead.
+
+It is intentionally uncomfortable—but recoverable.
+
+## Two-minute judge script
+
+1. Open **Today**. Point to ₹5,640, Safe to spend today and the first danger day.
+2. Enter the **What‑If Lab** and select **Buy concert ticket**. Follow the blue scenario path and metric receipt.
+3. Select **Pause OTT**, then **Take freelance gig**. Compare breathing room and risk.
+4. Apply the stronger choice and show its Decision Receipt.
+5. Open **Goals & Subs** and pause a recurring cost.
+6. End on the **30-Day Map**: every consequence has a date, and every view tells the same story.
+
+## Run locally
 
 ```bash
+git clone https://github.com/kulharshit21/broke-but-functional.git
+cd broke-but-functional
 npm install
 npm run dev
 ```
 
-Open `http://localhost:3000`. The demo begins on Day 8 with ₹5,640 available. No account, API key, database, or network connection is needed after the page loads.
+Open [http://localhost:3000](http://localhost:3000).
+
+## Verify
 
 ```bash
 npm test
 npm run build
 ```
 
-The Next.js build is statically exported to `out/` and is ready for Vercel.
+Vitest covers balance reconciliation, forecast length, negative cash, subscription pauses, emergencies, income improvements, shock scenarios, and score bounds. GitHub Actions runs tests and the production build on every push and pull request.
 
-## Product decisions
+## Stack and structure
 
-- One engine, many views. Dashboard, chart, calendar, simulator, subscriptions, goals, and ledger all derive from the same state and forecast.
-- Decisions are reversible. A simulation is non-destructive; Apply writes it to the month, creates a decision receipt, persists it, and supports undo.
-- Candid, not punitive. The product says exactly what breaks and offers a recovery amount without guilt or invented predictions.
-- Local-first. Versioned state lives under `bbf-state-v1`. Invalid storage falls back safely to the demo. Users can export, validate, and import JSON.
-- Accounting stays explicit. Current cash, future commitments, protected savings, shock reserve, and total savings are separate concepts. Money uses integer paise internally.
-
-## Money engine
-
-Current balance is the opening balance plus completed inflows minus completed outflows. Future-dated items never change current balance.
-
-`safe daily = max(0, current balance − essential commitments − active subscriptions − planned protected contribution − shock reserve − minimum buffer) ÷ usable days left`
-
-The shock reserve is 40% of probability-weighted shock exposure, capped at ₹1,500. The day-by-day forecast subtracts planned variable spend, commitments, active subscriptions and savings, then adds scheduled income in date order. This avoids using income to cover a bill due before that income arrives.
-
-Risk is a transparent 0–100 sum of bounded pressure from danger days, negative month-end balance, next-seven-day commitments, shock exposure, and subscription burden. Labels are Steady (0–24), Tight (25–49), Risky (50–74), and Danger (75–100).
-
-Health is the inverse perspective, weighted from survival runway (30%), ending cushion (20%), savings progress (15%), commitment coverage (15%), spending discipline (10%), and shock readiness (10%). Labels are Fragile, Managing, and Stable.
-
-## Demo month
-
-The seed begins with ₹10,000 and six completed ledger entries, resulting in ₹5,640 on Day 8. The remaining month includes mobile recharge, groceries, subscriptions, education costs, social obligations, two savings goals, and three probability-weighted shocks. The situation is intentionally tight but recoverable.
-
-## Two-minute judge demo
-
-1. Open Today. Point to ₹5,640, Safe to spend today, the 30-day survival line, and the first danger day.
-2. Open What‑If Lab and choose **Buy concert ticket**. Show the blue path, metric deltas, and recovery amount.
-3. Switch to **Pause OTT**, then **Take freelance gig**. Compare the extra runway and lower risk.
-4. Apply the stronger choice. Show the Decision Receipt and the live dashboard recalculation.
-5. Open Goals & Subs and pause another recurring cost. Show its immediate forecast impact.
-6. Finish on the 30-Day Map: every bill and danger point has a date, and every choice changes the same financial story.
-
-## Deploy to Vercel
-
-Push this folder to GitHub, import the repository in Vercel, keep the detected Next.js preset, and deploy. No environment variables are required. Alternatively, with the Vercel CLI authenticated:
-
-```bash
-npx vercel
-npx vercel --prod
+```text
+app/
+  globals.css            editorial fintech design system
+  layout.tsx             metadata and application shell
+  page.tsx               product entry point
+components/
+  money-app.tsx          five experiences and interaction state
+lib/
+  types.ts               financial domain model
+  seed.ts                Day-8 demo and scenario presets
+  engine.ts              pure forecast, scoring and simulation engine
+  engine.test.ts         deterministic money-engine tests
+.github/workflows/
+  ci.yml                 test + build gate
 ```
 
-## Architecture
+- Next.js 15, React 19 and strict TypeScript
+- Tailwind’s build pipeline with a completely custom design system
+- Hand-built accessible SVG forecast charts—no chart library
+- Versioned browser storage under `bbf-state-v1`
+- Static export with no backend, secret, account or paid API
 
-- `app/` — Next.js shell, metadata, and custom Tailwind-backed design system
-- `components/money-app.tsx` — five product surfaces and all user interactions
-- `lib/types.ts` — domain model
-- `lib/seed.ts` — realistic Day-8 demo and scenario presets
-- `lib/engine.ts` — pure money, forecast, simulation, risk, health, and apply functions
-- `lib/engine.test.ts` — deterministic Vitest coverage for core calculations and edge cases
+## Deployment
 
-Known limitation: the app models one 30-day survival cycle. Recurrence beyond Day 30 and multi-account bank sync are intentionally out of scope for a private, client-only hackathon demo.
+The GitHub repository is connected to Vercel. Every commit to `main` creates a production deployment after GitHub’s product checks pass. Pull requests receive preview deployments.
+
+No environment variables are required.
+
+## Design language
+
+**Paper ledger meets modern Indian fintech.** Warm paper surfaces, deep institutional green, acid lime used as a signal rather than decoration, hard editorial shadows, serif narrative moments, and monospaced money. The interface is candid and specific without turning financial stress into shame.
+
+## Scope
+
+This release models one 30-day survival cycle. Bank sync, multi-account reconciliation and recurrence beyond Day 30 are deliberately excluded so the hackathon experience stays instant, private and explainable.
+
+---
+
+Built for the moment between **“I can afford this today”** and **“but what does it do to the rest of my month?”**

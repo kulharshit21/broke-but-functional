@@ -39,6 +39,12 @@ describe("money engine", () => {
     expect(result.after.monthEnd).toBeGreaterThan(result.before.monthEnd);
     expect(result.after.runway).toBeGreaterThanOrEqual(result.before.runway);
   });
+  it("can include probability-weighted shocks in a scenario", () => {
+    const scenario = { ...scenarioPresets[0], includeShocks: true };
+    const withoutShocks = simulateDecision(seedState, scenarioPresets[0]);
+    const withShocks = simulateDecision(seedState, scenario);
+    expect(withShocks.after.monthEnd).toBeLessThan(withoutShocks.after.monthEnd);
+  });
   it("clamps risk and health scores", () => {
     expect(getRiskScore(seedState)).toBeGreaterThanOrEqual(0);
     expect(getRiskScore(seedState)).toBeLessThanOrEqual(100);

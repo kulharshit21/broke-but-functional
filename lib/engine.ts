@@ -99,6 +99,11 @@ function projectScenarioState(state: MoneyState, scenario: Scenario) {
     projected.ledger.push({ id: "simulated-decision", label: scenario.label, amount: scenario.kind === "side_gig" ? scenario.amount - (scenario.secondaryAmount || 0) : scenario.amount, day: scenario.day, category: scenario.category, type, status: scenario.day <= projected.profile.currentDay ? "completed" : "upcoming", essential: scenario.kind === "emergency" });
     if (scenario.kind === "savings" && scenario.targetId) { const goal = projected.goals.find(g => g.id === scenario.targetId); if (goal) goal.saved += scenario.amount; }
   }
+  if (scenario.includeShocks) {
+    projected.risks.filter(r => r.active && r.day >= projected.profile.currentDay).forEach(risk => {
+      projected.ledger.push({ id: `expected-${risk.id}`, label: `Expected exposure: ${risk.label}`, amount: Math.round(risk.amount * risk.probability), day: risk.day, category: "emergency", type: "emergency", status: risk.day <= projected.profile.currentDay ? "completed" : "upcoming", essential: true });
+    });
+  }
   return projected;
 }
 
