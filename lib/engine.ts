@@ -1,5 +1,8 @@
 import type {
+  Category,
+  CategoryBreakdownItem,
   ForecastDay,
+  GoalImpact,
   Metrics,
   MoneyState,
   Scenario,
@@ -12,6 +15,41 @@ const inflows = new Set<TransactionType>([
   "goal_withdrawal",
   "loan_received",
 ]);
+
+const CATEGORY_COLORS: Record<Category, string> = {
+  needs: "#124f37",
+  groceries: "#2e7d32",
+  food: "#d97706",
+  transport: "#2563eb",
+  subscriptions: "#7c3aed",
+  utilities: "#0891b2",
+  fun: "#ea580c",
+  social: "#db2777",
+  health: "#dc2626",
+  education: "#4f46e5",
+  emergency: "#b91c1c",
+  income: "#15803d",
+  savings: "#059669",
+  debt: "#64748b",
+};
+
+const CATEGORY_NAMES: Record<Category, string> = {
+  needs: "Needs",
+  groceries: "Groceries",
+  food: "Food & Dining",
+  transport: "Transport",
+  subscriptions: "Subscriptions",
+  utilities: "Utilities",
+  fun: "Fun & Leisure",
+  social: "Social",
+  health: "Health",
+  education: "Education",
+  emergency: "Emergency",
+  income: "Income",
+  savings: "Savings",
+  debt: "Debt",
+};
+
 const clamp = (n: number, min = 0, max = 100) =>
   Math.max(min, Math.min(max, n));
 export function formatINR(paise: number, sign = false) {
@@ -336,6 +374,83 @@ function projectScenarioState(state: MoneyState, scenario: Scenario) {
   return projected;
 }
 
+export function getCategoryBreakdown(
+  state: MoneyState,
+): CategoryBreakdownItem[] {
+  const totals = new Map<Category, number>();
+  for (const t of state.ledger) {
+    if (t.status === "completed" && !inflows.has(t.type)) {
+      totals.set(t.category, (totals.get(t.category) || 0) + t.amount);
+    }
+  }
+  const totalSpent = Array.from(totals.values()).reduce((a, b) => a + b, 0);
+  if (totalSpent === 0) return [];
+
+  return Array.from(totals.entries())
+    .map(([category, amount]) => ({
+      category,
+      name: CATEGORY_NAMES[category] || category,
+      amount,
+      percentage: Math.round((amount / totalSpent) * 100),
+      color: CATEGORY_COLORS[category] || "#64748b",
+    }))
+    .sort((a, b) => b.amount - a.amount);
+}
+
+export function getGoalImpact(
+  state: MoneyState,
+  before: Metrics,
+  after: Metrics,
+  scenario: Scenario,
+): GoalImpact[] {
+  return state.goals.map((g) => {
+    const remaining = Math.max(0, g.target - g.saved);
+    const daysUntilTarget = Math.max(1, g.targetDay - state.profile.currentDay);
+    const currentDailyReq = Math.round(remaining / daysUntilTarget);
+
+    if (scenario.kind === "savings" && scenario.targetId === g.id) {
+      const newRemaining = Math.max(0, remaining - scenario.amount);
+      const newDailyReq = Math.round(newRemaining / daysUntilTarget);
+      return {
+        goalId: g.id,
+        goalName: g.label,
+        stillOnTrack: true,
+        delayDays: 0,
+        dailyRequired: newDailyReq,
+      };
+    }
+
+    const safeDelta = before.safeDaily - after.safeDaily;
+    const isOutflow =
+      ["expense", "emergency", "bnpl"].includes(scenario.kind) &&
+      scenario.amount > 0;
+
+    let delayDays = 0;
+    if (isOutflow && safeDelta > 0) {
+      const dailyContribution =
+        g.plannedContribution > 0
+          ? Math.round(g.plannedContribution / daysUntilTarget)
+          : Math.max(100, Math.round(before.safeDaily * 0.2));
+      delayDays = Math.min(
+        daysUntilTarget,
+        Math.ceil(scenario.amount / Math.max(100, dailyContribution)),
+      );
+    }
+
+    const stillOnTrack =
+      after.monthEnd >= 0 &&
+      (after.nextDangerDay === null || after.nextDangerDay > g.targetDay);
+
+    return {
+      goalId: g.id,
+      goalName: g.label,
+      stillOnTrack,
+      delayDays,
+      dailyRequired: currentDailyReq,
+    };
+  });
+}
+
 export function simulateDecision(
   state: MoneyState,
   scenario: Scenario,
@@ -370,6 +485,7 @@ export function simulateDecision(
       (before.monthEnd - after.monthEnd) / Math.max(1, before.daysLeft),
     ),
   );
+  const goalImpact = getGoalImpact(state, before, after, scenario);
   return {
     before,
     after,
@@ -384,6 +500,7 @@ export function simulateDecision(
       delta < 0
         ? `${scenario.label} costs the future month ${formatINR(-delta)}. Today may look fine, but the runway gets tighter.`
         : `${scenario.label} adds ${formatINR(delta)} of breathing room to the month.`,
+    goalImpact,
   };
 }
 

@@ -147,6 +147,20 @@ export interface Metrics {
   healthScore: number;
   healthLabel: string;
 }
+export interface GoalImpact {
+  goalId: string;
+  goalName: string;
+  stillOnTrack: boolean;
+  delayDays: number;
+  dailyRequired: number;
+}
+export interface CategoryBreakdownItem {
+  category: Category;
+  name: string;
+  amount: number;
+  percentage: number;
+  color: string;
+}
 export interface SimulationResult {
   before: Metrics;
   after: Metrics;
@@ -155,4 +169,5 @@ export interface SimulationResult {
   warnings: string[];
   recommendation: string;
   story: string;
+  goalImpact?: GoalImpact[];
 }

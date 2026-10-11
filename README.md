@@ -26,10 +26,10 @@ Every screen answers one question: **“What can I safely spend today without br
 
 ## The five connected experiences
 
-1. **Today — the command centre.** A high-signal view of safe spend, balance, runway, committed cash, shock reserve, health, and the 30-day survival line.
-2. **What‑If Lab — the consequence engine.** Compare a concert ticket, freelance gig, emergency, BNPL purchase, subscription pause, savings transfer, or a custom amount without mutating real state.
-3. **30-Day Map — the money calendar.** Inspect future balances and schedule an expense or income event on the correct day without changing today’s cash.
-4. **Goals & Subs — protect and question.** Fund goals, preserve protected savings, and pause or resume recurring costs with immediate forecast feedback.
+1. **Today — the command centre.** A high-signal view of safe spend, balance, runway, committed cash, shock reserve, health, the interactive **₹10,000 Pool Allocation Ring**, **Category Spending Dynamics**, and the 30-day survival line.
+2. **What‑If Lab — the consequence engine.** Compare a concert ticket, sneaker drop frenzy, midnight Swiggy binge, roadtrip split, freelance gig, emergency medical shock, BNPL purchase, subscription pause, or a custom amount with live **Savings Goal Ripple Effect** feedback.
+3. **30-Day Map — the money calendar.** Inspect future balances, browse the **30-Day Spending & Solvency Matrix**, and schedule an expense or income event on the correct day without changing today’s cash.
+4. **Goals & Subs — protect and question.** Fund goals, preserve protected savings, test the interactive **Emergency Lockbox Simulator**, and pause or resume recurring costs with immediate forecast feedback.
 5. **Ledger — the paper trail.** Search and filter completed or upcoming money moves, undo decisions, import/export data, and reset the demo.
 
 ## Three moments built for the demo
@@ -113,7 +113,7 @@ Open [http://localhost:3000](http://localhost:3000).
 npm run verify
 ```
 
-The release gate runs formatting, strict type checks, 21 unit and interaction tests, and the production build. It covers balance reconciliation, forecast length, negative cash, subscription pauses, emergencies, income improvements, shock scenarios, score bounds, strict JSON import validation, keyboard-dismissable dialogs, navigation, and the mobile shock drill. GitHub Actions runs the same gate on every push and pull request.
+The release gate runs formatting, strict type checks, 23 unit and interaction tests, and the production build. It covers balance reconciliation, forecast length, negative cash, subscription pauses, emergencies, income improvements, shock scenarios, score bounds, strict JSON import validation, category breakdown calculations, savings goal ripple consequences, keyboard-dismissable dialogs, navigation, and the mobile shock drill. GitHub Actions runs the same gate on every push and pull request.
 
 ## Trust, accessibility, and performance
 

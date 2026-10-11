@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import {
   applyScenario,
+  getCategoryBreakdown,
   getCurrentBalance,
   getForecast,
   getHealthScore,
@@ -66,5 +67,23 @@ describe("money engine", () => {
     expect(getRiskScore(seedState)).toBeLessThanOrEqual(100);
     expect(getHealthScore(seedState)).toBeGreaterThanOrEqual(0);
     expect(getHealthScore(seedState)).toBeLessThanOrEqual(100);
+  });
+  it("computes category breakdown percentages and totals", () => {
+    const categories = getCategoryBreakdown(seedState);
+    expect(categories.length).toBeGreaterThan(0);
+    expect(categories[0].category).toBe("needs");
+    const totalPercentage = categories.reduce(
+      (sum, c) => sum + c.percentage,
+      0,
+    );
+    expect(totalPercentage).toBeGreaterThanOrEqual(95);
+    expect(totalPercentage).toBeLessThanOrEqual(105);
+  });
+  it("calculates goal ripple consequences in decision simulation", () => {
+    const concert = scenarioPresets.find((s) => s.id === "concert")!;
+    const sim = simulateDecision(seedState, concert);
+    expect(sim.goalImpact).toBeDefined();
+    expect(sim.goalImpact!.length).toBeGreaterThan(0);
+    expect(sim.goalImpact![0].goalName).toBe("Emergency fund");
   });
 });

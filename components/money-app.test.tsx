@@ -13,6 +13,8 @@ describe("MoneyApp interactions", () => {
     render(createElement(MoneyApp));
     expect(await screen.findByText("Safe to spend today")).toBeInTheDocument();
     expect(screen.getByText("Projected month-end")).toBeInTheDocument();
+    expect(screen.getByText("Pool Allocation")).toBeInTheDocument();
+    expect(screen.getByText("Category Breakdown")).toBeInTheDocument();
     expect(
       screen.getByRole("navigation", { name: "Primary navigation" }),
     ).toBeInTheDocument();
@@ -30,6 +32,7 @@ describe("MoneyApp interactions", () => {
     expect(
       screen.getByLabelText("Decision consequence comparison"),
     ).toBeInTheDocument();
+    expect(screen.getByText("Savings Goal Ripple Effect")).toBeInTheDocument();
   });
 
   it("opens a labelled dialog and closes it with Escape", async () => {

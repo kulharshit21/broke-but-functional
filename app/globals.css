@@ -1876,3 +1876,407 @@ input[type="range"] {
     transition: none !important;
   }
 }
+
+/* --- Budget Allocation Ring --- */
+.budget-ring-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.budget-ring-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  margin-top: 8px;
+}
+.ring-container {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.ring-svg {
+  transform: rotate(-90deg);
+}
+.ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+.ring-center small {
+  font: 700 9px var(--mono);
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.ring-center strong {
+  font: 700 20px var(--mono);
+  color: var(--ink);
+  line-height: 1.2;
+}
+.ring-center span {
+  font-size: 11px;
+  color: var(--green);
+  font-weight: 700;
+}
+.ring-legend {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  width: 100%;
+}
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: var(--ink);
+}
+.legend-item .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.legend-item .dot-avail {
+  background: #124f37;
+}
+.legend-item .dot-spent {
+  background: #b86b1d;
+}
+.legend-item .dot-com {
+  background: #2459a9;
+}
+.legend-item .dot-sav {
+  background: #059669;
+}
+
+/* --- Category Breakdown --- */
+.category-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+.category-bars {
+  display: grid;
+  gap: 12px;
+  margin-top: 14px;
+}
+.cat-row {
+  display: grid;
+  gap: 5px;
+}
+.cat-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+.cat-name {
+  font-weight: 600;
+  color: var(--ink);
+}
+.cat-nums {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+}
+.cat-nums small {
+  color: var(--muted);
+}
+.cat-nums strong {
+  font-weight: 700;
+}
+.cat-track {
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.cat-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.3s ease;
+}
+
+/* --- Spending Matrix --- */
+.spending-matrix-panel {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+}
+.matrix-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+.matrix-head h3 {
+  font:
+    600 18px Georgia,
+    serif;
+  margin: 3px 0 0;
+}
+.matrix-badge {
+  font: 700 10px var(--mono);
+  background: var(--surface2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.matrix-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 6px;
+}
+@media (max-width: 768px) {
+  .matrix-grid {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+.matrix-tile {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 6px 3px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: var(--surface);
+  transition:
+    transform 0.1s,
+    border-color 0.1s;
+  min-height: 48px;
+}
+.matrix-tile:hover {
+  transform: translateY(-1px);
+  border-color: var(--ink);
+}
+.matrix-tile.selected {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+.matrix-tile.today {
+  border: 2px solid var(--green);
+  box-shadow: 0 0 0 1px var(--lime);
+}
+.tile-day {
+  font: 700 9px var(--mono);
+  color: var(--muted);
+  line-height: 1;
+}
+.tile-val {
+  font: 700 10px var(--mono);
+  color: var(--ink);
+  margin-top: 4px;
+  line-height: 1;
+}
+.matrix-zero {
+  background: #faf8f2;
+}
+.matrix-low {
+  background: #eaf3ec;
+}
+.matrix-mid {
+  background: #fdf3df;
+}
+.matrix-high {
+  background: #fae4dc;
+}
+.matrix-safe {
+  background: #eaf3ec;
+}
+.matrix-tight {
+  background: #fdf3df;
+}
+.matrix-danger {
+  background: #f9d8d4;
+}
+.matrix-legend {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+.legend-pills {
+  display: flex;
+  gap: 5px;
+}
+.legend-pills .pill {
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  font: 700 9px var(--mono);
+}
+.pill-zero {
+  background: #faf8f2;
+}
+.pill-low {
+  background: #eaf3ec;
+}
+.pill-mid {
+  background: #fdf3df;
+}
+.pill-high {
+  background: #fae4dc;
+}
+.pill-danger {
+  background: #f9d8d4;
+  color: var(--danger);
+}
+
+/* --- Goal Ripple Card in What-If --- */
+.goal-ripple-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 18px 20px;
+  margin-top: 14px;
+}
+.ripple-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 10px;
+}
+.ripple-list {
+  display: grid;
+  gap: 8px;
+}
+.ripple-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  padding: 8px 12px;
+  background: var(--paper);
+  border-radius: 8px;
+  border: 1px solid var(--line);
+}
+.ripple-badge {
+  font: 700 11px var(--mono);
+  padding: 3px 7px;
+  border-radius: 4px;
+}
+.ripple-badge.on-track {
+  background: #d7eadc;
+  color: #285e3f;
+}
+.ripple-badge.delayed {
+  background: #fdf3df;
+  color: #754510;
+}
+
+/* --- Goal Lockbox Simulator in Goals --- */
+.goal-lockbox-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  box-shadow: var(--shadow);
+  display: grid;
+  gap: 16px;
+}
+.lockbox-badge {
+  font: 700 10px var(--mono);
+  background: var(--surface2);
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+  text-transform: uppercase;
+}
+.lockbox-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.5;
+  margin: 0;
+}
+.lockbox-slider-box {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px;
+  display: grid;
+  gap: 12px;
+}
+.slider-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 13px;
+}
+.slider-label strong {
+  font: 700 16px var(--mono);
+  color: var(--ink);
+}
+.lockbox-slider {
+  width: 100%;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+.lockbox-presets {
+  display: flex;
+  gap: 8px;
+}
+.preset-btn {
+  padding: 5px 12px;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  border-radius: 6px;
+  font: 700 11px var(--mono);
+  cursor: pointer;
+}
+.preset-btn.active {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green);
+}
+.lockbox-results {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.res-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 4px;
+}
+.res-card small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.res-card strong {
+  font: 700 16px var(--mono);
+}
+.delta-tag {
+  font: 700 11px var(--mono);
+  color: var(--warn);
+}
