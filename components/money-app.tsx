@@ -34,7 +34,6 @@ import {
 import {
   applyScenario,
   formatINR,
-  getForecast,
   getMetrics,
   simulateDecision,
 } from "@/lib/engine";
@@ -47,6 +46,8 @@ import { SpendingMatrix } from "@/components/calendar/SpendingMatrix";
 import { GoalImpactCard } from "@/components/what-if/GoalImpactCard";
 import { GoalLockboxSimulator } from "@/components/goals/GoalLockboxSimulator";
 import { HealthAdvice } from "@/components/health/HealthAdvice";
+import { HealthScore } from "@/components/health/HealthScore";
+import { useBudget } from "@/hooks/useBudget";
 import type {
   Category,
   ForecastDay,
@@ -125,8 +126,7 @@ export function MoneyApp() {
     const id = setTimeout(() => setToast(""), 3200);
     return () => clearTimeout(id);
   }, [toast]);
-  const forecast = useMemo(() => getForecast(state), [state]);
-  const metrics = useMemo(() => getMetrics(state, forecast), [state, forecast]);
+  const { forecast, metrics } = useBudget(state);
   const simulation = useMemo(
     () => simulateDecision(state, scenario),
     [state, scenario],
@@ -364,28 +364,7 @@ function Sidebar({
           </button>
         ))}
       </nav>
-      <div className="side-readout">
-        <div
-          className="score-orbit"
-          style={
-            {
-              "--score": `${metrics.healthScore * 3.6}deg`,
-            } as React.CSSProperties
-          }
-        >
-          <div>
-            <strong>{metrics.healthScore}</strong>
-            <small>/ 100</small>
-          </div>
-        </div>
-        <p>Financial health</p>
-        <strong>{metrics.healthLabel}</strong>
-        <small>
-          {metrics.nextDangerDay
-            ? `Buffer breaks on Day ${metrics.nextDangerDay}`
-            : "Buffer holds through Day 30"}
-        </small>
-      </div>
+      <HealthScore metrics={metrics} />
       <p className="side-quote">
         “Your money has a story.
         <br />

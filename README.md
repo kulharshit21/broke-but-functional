@@ -5,7 +5,7 @@
 ### The World's First Deterministic Financial Consequence & 30-Day Liquidity Simulator for Gen Z
 
 [![Live on Vercel](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://broke-but-functional-seven.vercel.app/)
-[![CI Pipeline](https://img.shields.io/badge/CI_Tests-30%2F30_Passing-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/kulharshit21/broke-but-functional/actions)
+[![CI Pipeline](https://img.shields.io/badge/CI_Tests-35%2F35_Passing-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/kulharshit21/broke-but-functional/actions)
 [![Next.js 16](https://img.shields.io/badge/Next.js-16.4_Turbopack-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
 [![React 19](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript Strict](https://img.shields.io/badge/TypeScript-5.7_Strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -296,7 +296,7 @@ broke-but-functional/
 
 ## 🧪 Test Suite & Verification
 
-Broke But Functional is backed by an automated verification gate featuring **30 comprehensive test cases** across 4 dedicated test suites using **Vitest** and **React Testing Library**:
+Broke But Functional is backed by an automated verification gate featuring **35 comprehensive test cases** across 4 dedicated test suites using **Vitest** and **React Testing Library**:
 
 ```bash
 # Run full automated verification suite
@@ -340,7 +340,7 @@ npm run verify
    ✓ full navigation flow between all five views
 
 Test Files  4 passed (4)
-     Tests  30 passed (30)
+     Tests  35 passed (35)
   Duration  1.62s
 ```
 

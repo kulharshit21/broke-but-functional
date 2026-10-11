@@ -2540,3 +2540,108 @@ input {
   font-weight: 800;
   box-shadow: 0 0 0 1.5px currentColor;
 }
+
+/* ==========================================================================
+   RESPONSIVE DESIGN SYSTEM ENGINE (FQE Breakpoint & Layout System)
+   Covers: sm (640px), md (768px), lg (1024px), xl (1280px), 2xl (1536px)
+   ========================================================================== */
+
+/* Fluid Container Utilities */
+.container-responsive {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Base Responsive Grid Scales */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+/* Responsive Touch Target Enforcement (WCAG 2.1 AA - 48px) */
+.touch-target-48 {
+  min-height: 48px;
+  min-width: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Breakpoint: Small Devices (Mobile Landscape / phablets >= 640px) */
+@media (min-width: 640px) {
+  .container-responsive {
+    max-width: 640px;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .sm-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .sm-flex-row {
+    flex-direction: row;
+  }
+  .sm-inline-block {
+    display: inline-block;
+  }
+}
+
+/* Breakpoint: Medium Devices (Tablets >= 768px) */
+@media (min-width: 768px) {
+  .container-responsive {
+    max-width: 768px;
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+  .md-grid-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .md-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .md-flex {
+    display: flex;
+  }
+  .md-hidden {
+    display: none;
+  }
+}
+
+/* Breakpoint: Large Devices (Desktops >= 1024px) */
+@media (min-width: 1024px) {
+  .container-responsive {
+    max-width: 1024px;
+  }
+  .lg-grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .lg-grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Breakpoint: Extra Large Devices (Large Monitors >= 1280px) */
+@media (min-width: 1280px) {
+  .container-responsive {
+    max-width: 1280px;
+  }
+  .xl-grid-5 {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+/* Mobile-First Max-Width Boundary Safeguards */
+@media (max-width: 639px) {
+  .mobile-stack {
+    flex-direction: column !important;
+  }
+  .mobile-full {
+    width: 100% !important;
+  }
+  .mobile-text-center {
+    text-align: center !important;
+  }
+}
