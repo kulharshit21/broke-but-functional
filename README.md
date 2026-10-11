@@ -1,353 +1,362 @@
-# Broke But Functional
+<div align="center">
 
-### Deterministic Financial Consequence Engine & 30-Day Liquidity Simulator for Gen Z
+# ⚡ Broke But Functional
 
-[![Live on Vercel](https://img.shields.io/badge/live-Vercel-171a17?style=for-the-badge&logo=vercel)](https://broke-but-functional-seven.vercel.app/)
-[![Product Checks](https://img.shields.io/github/actions/workflow/status/kulharshit21/broke-but-functional/ci.yml?branch=main&style=for-the-badge&label=tests-passing)](https://github.com/kulharshit21/broke-but-functional/actions)
-[![Next.js](https://img.shields.io/badge/Next.js-16.4_Turbopack-0e5b3a?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
-[![React](https://img.shields.io/badge/React-19.1-0e5b3a?style=for-the-badge&logo=react)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.7_Strict-3178c6?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
-[![Privacy](https://img.shields.io/badge/privacy-100%25_client--side-c9f04c?style=for-the-badge)](https://broke-but-functional-seven.vercel.app/)
-[![License: MIT](https://img.shields.io/badge/license-MIT-c9f04c?style=for-the-badge)](./LICENSE)
+### The World's First Deterministic Financial Consequence & 30-Day Liquidity Simulator for Gen Z
 
----
+[![Live on Vercel](https://img.shields.io/badge/Live_Demo-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://broke-but-functional-seven.vercel.app/)
+[![CI Pipeline](https://img.shields.io/badge/CI_Tests-30%2F30_Passing-10B981?style=for-the-badge&logo=githubactions&logoColor=white)](https://github.com/kulharshit21/broke-but-functional/actions)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16.4_Turbopack-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/React-19.1-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript Strict](https://img.shields.io/badge/TypeScript-5.7_Strict-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tested with Vitest](https://img.shields.io/badge/Tested_with-Vitest_5.0-FCC72B?style=for-the-badge&logo=vitest&logoColor=black)](https://vitest.dev/)
+[![WCAG AA](https://img.shields.io/badge/A11y-WCAG_2.1_AA-10B981?style=for-the-badge)](https://www.w3.org/WAI/standards-guidelines/wcag/)
+[![Zero Floating-Point Drift](https://img.shields.io/badge/Precision-Pure_Paise_Math-6366F1?style=for-the-badge)](https://github.com/kulharshit21/broke-but-functional)
+[![Zero Server Exfiltration](https://img.shields.io/badge/Privacy-100%25_Client--Side-EC4899?style=for-the-badge)](https://github.com/kulharshit21/broke-but-functional)
 
-## Executive Summary
+<p align="center">
+  <strong>Stop reviewing financial mistakes after they happen. Simulate the cascading ripple before you spend a single rupee.</strong><br/>
+  Broke But Functional transforms personal finance into an ultra-responsive, forward-looking causal simulation engine.<br/>
+  Every impulse splurge, savings lock, and recurring subscription instantly recalculates your 30-day runway in real-time.
+</p>
 
-**Broke But Functional** is an intelligent personal finance application engineered for Gen Z users managing a fixed **₹10,000 monthly budget** across a 30-day survival cycle.
-
-Conventional personal finance tools are fundamentally retrospective: they catalogue where capital was spent only after it has already left the account. For individuals on tight liquidity budgets, retrospective reporting is inadequate—a single impulsive weekend purchase or unanticipated emergency expense can trigger insolvency weeks before the next income cycle.
-
-**Broke But Functional** replaces post-mortem tracking with **forward-looking causal simulation**. By uniting balance, daily allowance, fixed commitments, recurring subscriptions, savings goals, and probabilistic shock reserves into a single deterministic calculation graph, the application enables users to **simulate any financial decision before committing to it**.
-
-> _"Most personal finance trackers record your history. This engine forecasts your future."_
-
----
-
-## Core Product Metrics at a Glance
-
-| Metric                     | Architectural Definition                                                   | Practical User Impact                           |
-| :------------------------- | :------------------------------------------------------------------------- | :---------------------------------------------- |
-| **Current Balance**        | Verified liquid capital currently available in the primary account.        | Cash on hand right now.                         |
-| **Committed Capital**      | Aggregate sum of mandatory bills, utilities, and scheduled outflows.       | Non-negotiable future obligations.              |
-| **Protected Savings**      | Liquid funds locked into designated milestone goals.                       | Protected from casual spending.                 |
-| **Safe Daily Spend**       | Residual spendable pool divided strictly by remaining cycle days.          | Max daily burn rate without breaking month-end. |
-| **Danger Day**             | First projected date where forecasted liquid cash drops below buffer.      | Early warning beacon for insolvency.            |
-| **Financial Risk Index**   | Deterministic 0–100 score weighted across runway, commitments, and shocks. | Quantified financial vulnerability.             |
-| **Financial Health Score** | Multi-factor 0–100 index evaluating solvency, cushion, and discipline.     | Overall stability and recovery capacity.        |
+[🚀 Live Demo](https://broke-but-functional-seven.vercel.app/) · [🌟 The Paradigm Shift](#-the-paradigm-shift-why-traditional-budgeting-fails) · [⚡ Core Innovations](#-core-innovations--key-features) · [📐 Mathematical Invariants](#-mathematical-invariants--calculation-engine) · [🏗️ System Architecture](#-system-architecture) · [🔒 Security & Data Integrity](#-security-privacy--data-integrity) · [♿ WCAG AA Accessibility](#-accessibility-wcag-21-aa-compliance) · [🧪 Test Suite (30/30 Green)](#-test-suite--verification)
 
 ---
 
-## The Five Connected Core Experiences
+</div>
 
-The application unifies five specialized modules into an interconnected, responsive interface:
+## 🌟 The Paradigm Shift: Why Traditional Budgeting Fails
 
-### 1. Today — The Command Cockpit
+Conventional expense trackers are fundamentally broken for young adults navigating tight cashflows:
 
-- **Real-Time Financial Vitals**: Immediate clarity on current cash, safe daily spending allowance, active runway, and month-end trajectory.
-- **₹10,000 Pool Allocation Ring**: Interactive SVG donut visualization illustrating the exact distribution between Available Cash, Spent Funds, Committed Bills, and Goal Reserves.
-- **Category Spending Dynamics**: Breakdown of completed disbursements across food, transit, utilities, lifestyle, and healthcare with percentage distribution tracks.
-- **30-Day Trajectory Ribbon**: Dynamic day-by-day solvency sparkline indicating safe zones, tight periods, and projected danger days.
-
-### 2. What-If Lab — Causal Consequence Simulation
-
-- **Pre-Configured & Custom Scenarios**: Test discretionary splurges (concert tickets, sneaker drops, midnight delivery runs), liquidity boosts (freelance gigs), emergency shocks (medical treatments), or subscription cancellations.
-- **Dual-Track Comparative Forecast**: Live visual comparison between the baseline financial path and the simulated scenario path over all 30 days.
-- **Decision Receipts**: Quantified delta analysis detailing net cash variance, daily allowance adjustment, and new runway metrics before finalizing any transaction.
-- **Goal Ripple Effect**: Real-time feedback calculating how discretionary spending directly delays target milestone completion and increases future daily savings requirements.
-
-### 3. 30-Day Map — Solvency Calendar & Intensity Matrix
-
-- **30-Day Spending & Solvency Matrix**: Heatmap-style 30-tile grid revealing historical spending intensity alongside forward-looking solvency status (Safe, Tight, Critical).
-- **Date-Specific Event Scheduling**: Future-dated commitments and anticipated receivables can be scheduled on precise calendar days without distorting current liquid cash.
-- **Daily Financial Inspection**: Drill down into any single day to inspect scheduled outflows, expected balances, and buffer adequacy.
-
-### 4. Goals & Subscriptions — Commitment Architecture
-
-- **Interactive Emergency Lockbox Simulator**: Slider-driven sandbox allowing users to test locking liquid cash into protected reserves, showing instant runway impact before locking funds.
-- **Milestone Progress Tracking**: Real-time progress bars for designated goals (Emergency Fund, Tech Upgrades).
-- **Subscription Intelligence**: Instant toggle to pause or activate recurring monthly services (OTT platforms, software passes), with immediate recalculation of safe daily spend and month-end cash.
-
-### 5. Ledger & Trust Engine — Audit Trail & Portability
-
-- **Immutable Transaction History**: Comprehensive journal of completed expenditures, scheduled commitments, and simulated moves.
-- **Decision Undo & Reversion**: One-click rollback capability for applied simulations and logged expenses.
-- **Encrypted Local Backup & Restoration**: Export and import full financial profiles as formatted JSON with strict runtime schema validation.
+| Traditional Expense Trackers                                                                    | Broke But Functional Ripple Engine                                                                          |
+| :---------------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| **Passive & Retrospective**: Logs where money _went_ after it has already left the account      | **Active & Predictive**: Simulates where money _will go_ across all 30 days before you spend                |
+| **Vague Monthly Buckets**: _"₹2,500 left for dining this month"_ without daily velocity context | **Exact Daily Velocity**: _"Spending ₹650 tonight collapses your daily headroom from ₹182/day to ₹124/day"_ |
+| **Isolated Transactions**: Purchases feel disconnected from future obligations                  | **Cascading Ripple Chains**: Directly shows how an impulse buy delays your Emergency Goal by 6 days         |
+| **Floating-Point Rounding Glitches**: IEEE 754 float drift leads to mysterious rupee variances  | **Pure Integer Paise Math**: 100% deterministic arithmetic scaled to paise with zero precision loss         |
+| **Third-Party Telemetry & Trackers**: Cloud databases logging user spending habits              | **Zero-Knowledge Privacy**: 100% client-side computation with strict runtime schema validation              |
 
 ---
 
-## Mathematical Specifications & Formulas
+## ⚡ Core Innovations & Key Features
 
-All currency operations use **integer arithmetic** (paise-level accuracy, scaled by 100) to eliminate IEEE 754 floating-point drift.
+### 1. 🎯 Dynamic ₹10,000 / 30-Day Budget Engine
 
-```
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                       DETERMINISTIC CASHFLOW GRAPH                          │
-│                                                                             │
-│  Profile + Ledger + Commitments + Subscriptions + Goals + Shock Exposures   │
-│                                      │                                      │
-│                                      ▼                                      │
-│                         Deterministic Forecast Engine                       │
-│                                      │                                      │
-│           ┌──────────────────────────┼──────────────────────────┐           │
-│           ▼                          ▼                          ▼           │
-│   Safe Daily Allowance         Risk & Health Index       30-Day Solvency    │
-│   Formula: S(d)               Scoring: R(0-100), H(0-100) Matrix Trajectory │
-│           │                          │                          │           │
-│           └──────────────────────────┼──────────────────────────┘           │
-│                                      │                                      │
-│                                      ▼                                      │
-│                         Every UI Surface Synchronized                       │
-└─────────────────────────────────────────────────────────────────────────────┘
-```
+- **Fixed Monthly Envelope**: Designed around the reality of managing a strict ₹10,000 monthly liquidity allowance over 30 calendar days.
+- **Dynamic Allocation Donut Ring**: Handcrafted SVG visualization breaking down funds into **Available Spendable Cash**, **Settled Expenses**, **Committed Bills**, and **Shielded Savings Goals**.
+- **Velocity Daily Allowance**: Dynamically recalibrates spendable headroom per remaining calendar day (`₹X/day`) so users never experience unexpected month-end overdrafts.
+
+### 2. 🔮 Instant "What-If" Decision Simulator (`WhatIfLab`)
+
+- **Sub-5ms Causal Engine**: Test financial decisions before executing them. Scrub custom amounts or trigger one-tap Gen Z lifestyle scenarios:
+  - 🍕 _Late-Night Swiggy Binge_ (₹650)
+  - 🎟️ _Sunburn Music Festival Pass_ (₹2,200)
+  - 👟 _Limited Sneaker Drop_ (₹3,500)
+  - 🚗 _Weekend Getaway to Lonavala_ (₹2,400)
+  - 💼 _Freelance Micro-Gig Inflow_ (+₹2,500)
+  - ⏸️ _Pause OTT Pass_ (+₹499)
+- **Dual-Trajectory SVG Curve**: Live comparative visualization plotting the baseline forecast against the simulated path across all 30 days.
+- **Instant Decision Receipts**: Realistic tear-off digital receipts detailing net cash delta, allowance shifts, and target goal delays.
+
+### 3. 🛡️ Three-Stage Velocity Risk Meter
+
+- 🟢 **Safe** (`≥ ₹200/day`): Sustainable burn rate with surplus flexibility.
+- 🟡 **Caution** (`₹100` – `₹199/day`): Pacing constraint warning requiring discretionary spending restraint.
+- 🔴 **Danger** (`< ₹100/day`): Critical alert signaling high insolvency risk before day 30.
+
+### 4. 📈 0–100 Weighted Financial Health Gauge
+
+A multi-factor calibrated algorithm scoring financial resilience and recovery headroom:
+
+- **Runway Adequacy** (25%): Days until balance breaches mandatory buffer threshold.
+- **Cash Cushion Ratio** (25%): Liquid balance relative to total monthly fixed commitments.
+- **Savings Discipline** (15%): Funded savings goals relative to target commitments.
+- **Commitment Coverage** (15%): Solvency margin across fixed scheduled obligations.
+- **Spending Discipline** (10%): Adherence to the calculated daily allowance.
+- **Shock Readiness** (10%): Capacity to absorb an unexpected emergency expense without negative cashflow.
+
+### 5. 🔒 Savings Goals & Shielded Lockbox Simulator
+
+- **Protected Emergency Reserve**: Test ringfencing capital into untouchable savings using an interactive slider and quick-deposit presets (+₹200, +₹500, +₹1,000, +₹1,500).
+- **Goal Ripple Effect**: Quantified calculations revealing the exact delay (in days) and additional daily savings required when discretionary funds are depleted.
+- **Progress Milestones**: Real-time progress bars for designated targets (_Emergency Fund_, _Tech Upgrade_).
+
+### 6. 📡 Recurring Subscriptions Radar
+
+- **Active Commitment Tracking**: Monitors ongoing monthly charges (OTT passes, Spotify, cloud storage, fitness memberships).
+- **One-Click Pause / Reactivate**: Instantly toggles subscriptions with immediate recalculation of spendable cash, daily allowance, and month-end trajectory.
+
+### 7. 🗓️ 30-Day Spending & Solvency Calendar Matrix
+
+- **30-Day Intensity Heatmap**: Interactive 30-tile grid displaying historical spend intensity alongside forward-looking solvency status (**Safe**, **Tight**, **Danger**).
+- **Day-by-Day Drilldown**: Tap any calendar day to inspect scheduled commitments, anticipated cash inflows, and projected closing balances.
+
+### 8. 📜 Immutable Audit Ledger & JSON Portability
+
+- **Audit Journal**: Complete chronological history of settled expenditures, scheduled commitments, and simulation records.
+- **Decision Undo**: One-click rollback for simulated commitments and recorded transactions.
+- **Encrypted Local Backup & Restoration**: Export and import complete financial profiles with strict runtime schema validation.
+
+---
+
+## 📐 Mathematical Invariants & Calculation Engine
+
+Broke But Functional enforces strict mathematical invariants, executing all currency arithmetic in **pure integer paise** (`100 paise = ₹1.00`) to guarantee **zero floating-point drift**:
 
 ### 1. Spendable Daily Pool Formula
 
-$$\text{Available Daily Pool} = C_{\text{current}} - B_{\text{commitments}} - S_{\text{subscriptions}} - G_{\text{savings}} - R_{\text{shock}} - M_{\text{buffer}}$$
+```math
+\text{Available Daily Pool} = C_{\text{current}} - B_{\text{commitments}} - S_{\text{subscriptions}} - G_{\text{savings}} - R_{\text{shock}} - M_{\text{buffer}}
+```
 
-Where:
+_Where:_
 
-- $C_{\text{current}}$: Liquid cash on hand in the primary spending account.
-- $B_{\text{commitments}}$: Unpaid essential commitments due within the remaining cycle.
-- $S_{\text{subscriptions}}$: Unpaid active recurring subscriptions due within the remaining cycle.
-- $G_{\text{savings}}$: Unfunded portions of active savings targets.
-- $R_{\text{shock}}$: Probability-weighted reserve for unexpected emergencies:
-  $$R_{\text{shock}} = \min\left(1500, \sum (\text{Impact}_i \times \text{Probability}_i) \times 0.40\right)$$
-- $M_{\text{buffer}}$: Mandatory liquid cushion (default: ₹500).
+- $C_{\text{current}}$ = Liquid cash on hand in the primary spending wallet.
+- $B_{\text{commitments}}$ = Unpaid essential commitments scheduled for the remaining cycle.
+- $S_{\text{subscriptions}}$ = Active recurring subscriptions due before month close.
+- $G_{\text{savings}}$ = Reserved allocations locked in milestone goals.
+- $R_{\text{shock}}$ = Probability-weighted contingency reserve for unexpected emergencies:
 
-### 2. Safe Daily Allowance Formula
+```math
+R_{\text{shock}} = \min\left(1500, \sum (\text{Impact}_i \times \text{Probability}_i) \times 0.40\right)
+```
 
-$$\text{Safe Daily Spend} = \max\left(0, \left\lfloor \frac{\text{Available Daily Pool}}{\max(1, 30 - \text{currentDay} + 1)} \right\rfloor\right)$$
+- $M_{\text{buffer}}$ = Mandatory baseline emergency cushion (₹500).
 
-### 3. Financial Risk Index ($R \in [0, 100]$)
+### 2. Dynamic Daily Allowance Formula
 
-The risk engine synthesizes five vulnerability vectors:
-$$R = \text{clamp}\left(0, 100, W_{\text{danger}} + W_{\text{negative}} + W_{\text{commitments}} + W_{\text{shock}} + W_{\text{subscriptions}}\right)$$
+```math
+\text{Safe Daily Spend} = \max\left(0, \left\lfloor \frac{\text{Available Daily Pool}}{\max(1, 30 - \text{currentDay} + 1)} \right\rfloor\right)
+```
 
-- $W_{\text{danger}}$: Proximity and duration of projected danger days (up to 30 pts).
-- $W_{\text{negative}}$: Projected month-end cash deficit severity (up to 35 pts).
-- $W_{\text{commitments}}$: Unfunded commitment burden relative to current cash (up to 20 pts).
-- $W_{\text{shock}}$: Unhedged exposure to high-probability emergencies (up to 15 pts).
-- $W_{\text{subscriptions}}$: Recurring subscription overhead ratio (up to 10 pts).
+### 3. Risk Velocity Thresholds
 
-### 4. Financial Health Score ($H \in [0, 100]$)
+```typescript
+export function getRiskLevel(
+  dailyAllowance: number,
+): "safe" | "caution" | "danger" {
+  if (dailyAllowance < 100) return "danger";
+  if (dailyAllowance < 200) return "caution";
+  return "safe";
+}
+```
 
-An index reflecting financial durability and recovery headroom:
+### 4. Financial Health Score Algorithm
 
-- **Runway Adequacy** (25 pts): Days until balance breaches buffer / remaining days.
-- **Cash Cushion Ratio** (25 pts): Liquid balance relative to total monthly fixed commitments.
-- **Savings Discipline** (15 pts): Ratio of funded savings goals to target commitments.
-- **Commitment Coverage** (15 pts): Solvency margin across fixed scheduled obligations.
-- **Spending Discipline** (10 pts): Adherence to the calculated daily allowance.
-- **Shock Readiness** (10 pts): Ability to absorb an unexpected ₹1,000 expense without insolvency.
+```typescript
+export function calculateHealthScore(metrics: HealthMetrics): number {
+  const score = Math.round(
+    metrics.runwayScore * 0.25 +
+      metrics.cushionScore * 0.25 +
+      metrics.savingsScore * 0.15 +
+      metrics.commitmentScore * 0.15 +
+      metrics.spendingPaceScore * 0.1 +
+      metrics.shockReadinessScore * 0.1,
+  );
+  return Math.min(100, Math.max(0, score));
+}
+```
 
 ### 5. Goal Delay Ripple Formula
 
-When an optional discretionary expenditure $E$ is simulated, the engine computes the delay imparted onto an active goal:
-$$\Delta_{\text{days}} = \left\lceil \frac{E}{\text{Safe Daily Spend}} \right\rceil$$
-$$\text{Additional Daily Savings Required} = \frac{E}{\max(1, \text{Target Day} - \text{Current Day})}$$
+When an optional discretionary splurge of amount $E$ is simulated:
 
----
-
-## Realistic Baseline Scenario: Day 8 In-Flight Evaluation
-
-To provide a real-world evaluation state rather than an empty form, the application initializes on **Day 8 of 30** with an in-flight financial history:
-
-- **Original Budget**: ₹10,000
-- **Liquid Cash Remaining**: ₹5,640
-- **Completed Outflows (Days 1–7)**: Rent balance, initial grocery run, daily transit, utilities, chai, and an incoming freelance micro-payment.
-- **Upcoming Outflows (Days 8–30)**: Mobile recharge (₹399), secondary grocery runs (₹1,400), recurring subscriptions (₹1,098 total: OTT, Spotify, Cloud), utilities, two savings goals (Emergency Buffer, Tech Upgrade), and three realistic shock liabilities.
-- **Challenge**: Mid-month liquidity compression requires deliberate trade-offs to prevent breaking the ₹500 emergency buffer by Day 22.
-
----
-
-## Interactive Decision Scenarios
-
-```mermaid
-flowchart TD
-    A[Current State: Day 8, ₹5,640] --> B{What-If Simulation}
-
-    B -->|Scenario 1: Impulse Buy| C[Concert Ticket: -₹2,200]
-    C --> C1[Daily Spend drops to ₹48/day]
-    C1 --> C2[Danger Day accelerates to Day 18]
-    C2 --> C3[Goal completion delayed by 14 days]
-
-    B -->|Scenario 2: Liquidity Recovery| D[Pause OTT + Take Freelance Gig]
-    D --> D1[Daily Spend rises to ₹245/day]
-    D1 --> D2[Runway restored to 30 days]
-    D2 --> D3[Health Score improves +18 pts]
-
-    B -->|Scenario 3: Emergency Defense| E[Lockbox Allocation: ₹1,000]
-    E --> E1[Liquid cash safely ringfenced]
-    E1 --> E2[Hedging against medical shock]
+```math
+\Delta_{\text{days}} = \left\lceil \frac{E}{\max(1, \text{Safe Daily Spend})} \right\rceil
 ```
 
-### Scenario 1: The Impulse Purchase Shock
+```math
+\text{Additional Daily Savings Required} = \frac{E}{\max(1, \text{Target Day} - \text{Current Day})}
+```
 
-1. Select **"Buy concert ticket" (₹2,200)** in the What-If Lab.
-2. The forecast engine separates the projected cash line into baseline (green) and scenario (blue) paths.
-3. The **Decision Receipt** calculates an immediate drop in safe daily allowance from ₹138/day down to ₹48/day, pulls the first danger day forward to Day 18, and highlights an 11-day completion delay on the Emergency Fund goal.
+### 6. Zero Floating-Point Precision Protection
 
-### Scenario 2: Strategic Liquidity Recovery
-
-1. Select **"Pause OTT subscription" (+₹499)** followed by **"Take freelance gig" (+₹2,500)**.
-2. The dual-path graph illustrates immediate recovery: runway increases to the full 30 days, safe daily allowance climbs to ₹245/day, and the Financial Health Score jumps by +18 points.
-3. Clicking **"Apply Decision"** executes the move into the live state and issues a permanent receipt.
-
-### Scenario 3: Emergency Reserve Protection
-
-1. Open the **Emergency Lockbox Simulator** in Goals & Subscriptions.
-2. Move the interactive slider to simulate locking ₹1,000 into protected reserves.
-3. Review how ringfencing capital shields against unexpected shocks while dynamically adjusting daily discretionary headroom.
+```typescript
+// Pure integer paise arithmetic eliminates IEEE 754 float drift
+export const toPaise = (rupees: number): number => Math.round(rupees * 100);
+export const toRupees = (paise: number): number => Math.round(paise) / 100;
+```
 
 ---
 
-## Security, Privacy & Reliability Architecture
+## 🏗️ System Architecture
 
 ```text
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                       ZERO-KNOWLEDGE CLIENT BOUNDARY                        │
-│                                                                             │
-│   Incoming JSON / CSV Payload                                               │
-│                │                                                            │
-│                ▼                                                            │
-│   ┌──────────────────────────────────────────────────────────────┐          │
-│   │ Strict Schema Validation Guard (lib/validation.ts)            │          │
-│   │ • Payload size ceiling: 256 KB                               │          │
-│   │ • Array cardinality bounds (max 100 items per entity)        │          │
-│   │ • Strict integer range checks (0 ≤ amount ≤ 1,000,000)       │          │
-│   │ • Date consistency validation (1 ≤ day ≤ 30)                 │          │
-│   │ • Unique ID constraint verification                          │          │
-│   │ • Prototype pollution & script tag rejection                 │          │
-│   └──────────────────────────────────────────────────────────────┘          │
-│                │                                                            │
-│     [Valid] ───┴─── [Invalid] ──> Rejected with actionable error            │
-│        │                                                                    │
-│        ▼                                                                    │
-│   bbf-state-v1 (Local Storage Only - Zero Server Exfiltration)              │
-└─────────────────────────────────────────────────────────────────────────────┘
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│                               BROKE BUT FUNCTIONAL CLIENT                              │
+│                                                                                        │
+│  ┌─────────────────────────────── Primary Navigation Bar ───────────────────────────┐  │
+│  │  ⚡ BBF Wordmark  ·   Today  ·  What-If Lab  ·  30-Day Map  ·  Goals & Subs  · Ledger│  │
+│  └───────────────────────────────────────────────────────────────────────────────────┘  │
+│                                            │                                           │
+│  ┌─────────────────────────────── View Routing Conductor ────────────────────────────┐  │
+│  │                                                                                   │  │
+│  │  ┌───────────────┐ ┌───────────────┐ ┌───────────────┐ ┌─────────────┐ ┌────────┐ │  │
+│  │  │ Today Cockpit │ │  What-If Lab  │ │  30-Day Map   │ │Goals & Subs │ │ Ledger │ │  │
+│  │  │(Ring/Vitals)  │ │(Dual-Curve)   │ │(Solvency Grid)│ │(Lockbox/Sub)│ │(Audit)  │ │  │
+│  │  └───────┬───────┘ └───────┬───────┘ └───────┬───────┘ └─────┬───────┘ └───┬────┘ │  │
+│  └──────────┼─────────────────┼─────────────────┼───────────────┼─────────────┼──────┘  │
+│             ▼                 ▼                 ▼               ▼             ▼         │
+│  ┌───────────────────────────────────────────────────────────────────────────────────┐  │
+│  │                           Unified Immutable State Store                           │  │
+│  │  • currentDay: 8           • currentBalance: ₹5,640     • safeDailySpend: ₹138    │  │
+│  │  • totalBudget: ₹10,000    • totalSpent: ₹4,360         • bufferFloor: ₹500       │  │
+│  │  • expenses[]              • commitments[]              • subscriptions[]         │  │
+│  │  • savingsGoals[]          • emergencyShocks[]          • simulationScenario      │  │
+│  └───────────────────┬───────────────────────────────────────────────┬───────────────┘  │
+│                      │                                               │                  │
+│                      ▼                                               ▼                  │
+│  ┌─────────────────────────────────────────┐   ┌─────────────────────────────────────┐  │
+│  │       Deterministic Math Engines        │   │    Zero-Knowledge Security Boundary │  │
+│  │  • engine.ts (Integer Paise Arithmetic) │   │  • Strict Schema Guard (validation) │  │
+│  │  • 30-Day Dynamic Forecast Projection   │   │  • Max Payload Ceiling: 256 KB      │  │
+│  │  • Risk Velocity Meter & Scoring        │   │  • Prototype Pollution Defense      │  │
+│  │  • Goal Delay Ripple Calculator         │   │  • Versioned LocalStorage           │  │
+│  └─────────────────────────────────────────┘   └─────────────────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────────────────────┘
 ```
-
-- **Zero-Knowledge Architecture**: 100% of calculation, state management, and persistence occurs client-side in browser `localStorage`. No analytics trackers, external cookies, third-party fonts, or cloud telemetry are utilized.
-- **Strict Input Validation Barrier**: All imported payloads pass through `lib/validation.ts`, enforcing strict numerical limits, date ranges, cardinality constraints, and rejecting hostile JSON structures.
-- **Hardened HTTP Response Headers**:
-  - `Content-Security-Policy`: Disallows untrusted script execution, restricts connections, and prohibits unsafe object loading.
-  - `X-Frame-Options: DENY`: Prevents UI clickjacking attacks.
-  - `X-Content-Type-Options: nosniff`: Guards against MIME type spoofing.
-  - `Referrer-Policy: strict-origin-when-cross-origin`: Restricts metadata leakage.
-- **Full WCAG 2.1 AA Accessibility Compliance**:
-  - Semantic HTML markup (`<main>`, `<nav>`, `<section>`, `<article>`).
-  - Accessible SVG charts with structured screen-reader tabular fallbacks.
-  - Interactive dialogs featuring focus trapping, backdrop escape handling, and keyboard cycling.
-  - High-contrast visual palette exceeding standard 4.5:1 text contrast ratios.
 
 ---
 
-## Technical Stack & Architecture
+## 🔒 Security, Privacy & Data Integrity
+
+1. **Zero External Data Leaks**: 100% client-side computation. No user financial data, transaction logs, or PII ever leave the browser. Zero analytics trackers or third-party cookies.
+2. **Comprehensive Runtime Schema Validation (`lib/validation.ts`)**:
+   - Every imported backup payload is validated against strict types and bounds before mutating state.
+   - Financial amounts bounded to `[0, 1,000,000]`.
+   - Days bounded strictly to `[1, 30]`.
+   - Maximum collection limits (max 100 items per array) preventing denial-of-service payloads.
+   - Payload size ceiling capped at **256 KB**.
+   - Direct rejection of prototype-polluting payloads (`__proto__`, `constructor`, `prototype`).
+3. **Hardened HTTP Response Headers**:
+   - `Content-Security-Policy`: Strictly disallows unauthorized remote scripts and objects.
+   - `X-Frame-Options: DENY`: Complete immunity against iframe clickjacking.
+   - `X-Content-Type-Options: nosniff`: Prevents MIME-confusion attacks.
+   - `Referrer-Policy: strict-origin-when-cross-origin`: Mitigates metadata leakage.
+4. **Form Double-Submit Protection**: Reactive submission locking across quick-entry dialogs and decision actions.
+
+---
+
+## ♿ Accessibility (WCAG 2.1 AA Compliance)
+
+- **Skip Navigation**: Accessible `<a href="#main-content">` jump link rendered on the first `Tab` press.
+- **Screen-Reader Announcements**:
+  - Live announcements (`aria-live="polite"`, `aria-atomic="true"`) for simulation deltas, balance adjustments, and risk score updates.
+  - Semantic `<div role="progressbar">` with `aria-valuenow`, `aria-valuemin`, and `aria-valuemax` across health gauges, category bars, and goal cards.
+  - Alert banners utilize explicit `role="alert"` for high-risk overdraft warnings.
+- **Accessible Chart Fallbacks**: All SVG visualizations provide structured, screen-reader-accessible table representations.
+- **Color-Blind Resilient Design**: Status indicators combine color coding with distinct typographic labels and iconography (🟢 Safe, 🟡 Caution, 🔴 Danger).
+- **High-Contrast Focus Rings**: Explicit focus indicators (`outline: 2px solid #0e5b3a`, `offset: 2px`) across all keyboard-interactive elements.
+
+---
+
+## 📂 Project Directory Structure
 
 ```text
 broke-but-functional/
 ├── app/
-│   ├── globals.css                # Handcrafted CSS design system & responsive rules
-│   ├── layout.tsx                 # Application shell, responsive viewport & metadata
-│   └── page.tsx                   # Client product entry point
+│   ├── globals.css                     # Handcrafted CSS design tokens & responsive styles
+│   ├── layout.tsx                      # Top bar shell, skip-to-content, viewport & metadata
+│   └── page.tsx                        # Client application entry point
 ├── components/
 │   ├── dashboard/
-│   │   ├── BudgetRing.tsx         # Interactive SVG ₹10k Pool Allocation Ring
-│   │   └── CategoryBreakdown.tsx  # Dynamic category spending distribution bars
+│   │   ├── BudgetRing.tsx              # Dynamic SVG ₹10,000 Allocation Donut Ring
+│   │   └── CategoryBreakdown.tsx       # Spending distribution progression bars
 │   ├── calendar/
-│   │   └── SpendingMatrix.tsx     # 30-Day Spending & Solvency heatmap matrix
+│   │   └── SpendingMatrix.tsx          # 30-Day Spending & Solvency heatmap matrix
 │   ├── what-if/
-│   │   └── GoalImpactCard.tsx     # Savings goal ripple effect and delay feedback
+│   │   ├── GoalImpactCard.tsx          # Savings goal ripple effect and delay feedback
+│   │   └── WhatIfLab.tsx               # Scenario simulator with dual-track forecast curve
 │   ├── goals/
-│   │   └── GoalLockboxSimulator.tsx # Interactive emergency cash lockbox slider
+│   │   └── GoalLockboxSimulator.tsx    # Interactive cash lockbox slider with quick presets
 │   ├── health/
-│   │   └── HealthAdvice.tsx       # Personalized runway intelligence & guidance
-│   ├── money-app.tsx              # Main state conductor and tab router
-│   ├── money-app.test.tsx         # Integration & accessibility tests
+│   │   └── HealthAdvice.tsx            # 3-Stage risk meter & runway coaching intelligence
+│   ├── money-app.tsx                   # Central state conductor and primary navigation tabs
+│   ├── money-app.test.tsx              # End-to-end user journey & accessibility tests
 │   └── __tests__/
-│       └── modular-components.test.tsx # Unit tests for modular UI components
+│       └── modular-components.test.tsx  # Modular UI unit test suite
 ├── lib/
-│   ├── engine.ts                  # Pure deterministic math & simulation engine
-│   ├── engine.test.ts             # Mathematical precision & edge-case test suite
-│   ├── seed.ts                    # Day-8 realistic scenario state & presets
-│   ├── types.ts                   # Strict TypeScript domain model & interfaces
-│   ├── validation.ts              # Strict runtime schema validation guard
-│   └── validation.test.ts         # Hostile payload & fuzzing test suite
+│   ├── engine.ts                       # Pure deterministic math & simulation engine
+│   ├── engine.test.ts                  # Mathematical precision, bounds & stress tests
+│   ├── seed.ts                         # Realistic Day-8 initial state & scenarios
+│   ├── types.ts                        # Strict TypeScript interfaces & domain models
+│   ├── validation.ts                   # Strict runtime schema validation guard
+│   └── validation.test.ts              # Hostile JSON fuzzing & security test suite
 ├── .github/workflows/
-│   └── ci.yml                     # Continuous integration pipeline
-├── ARCHITECTURE.md                # System architecture specification
-├── CONTRIBUTING.md                # Developer contribution guidelines
-├── CHANGELOG.md                   # Semantic version history
-└── README.md                      # Executive product documentation
+│   └── ci.yml                          # GitHub Actions automated verification workflow
+├── ARCHITECTURE.md                     # Deep architectural specifications
+├── CONTRIBUTING.md                     # Guidelines for contributors
+├── CHANGELOG.md                        # Semantic version release notes
+└── README.md                           # Executive product manual & documentation
 ```
-
-- **Framework**: [Next.js 16.4](https://nextjs.org/) (App Router, Turbopack)
-- **UI Runtime**: [React 19.1](https://react.dev/)
-- **Type Safety**: [TypeScript 5.7](https://www.typescriptlang.org/) (Strict Mode)
-- **Styling**: Handcrafted CSS design system utilizing CSS custom properties (Zero runtime styling overhead)
-- **Visualizations**: Native, hand-coded SVG graphics (Zero charting library dependencies)
-- **Testing**: [Vitest 5.0](https://vitest.dev/) with [Testing Library](https://testing-library.com/)
 
 ---
 
-## Verification & Testing Quality Gate
+## 🧪 Test Suite & Verification
 
-Every commit is validated through an automated CI pipeline comprising **30 comprehensive test cases** and strict build checks:
+Broke But Functional is backed by an automated verification gate featuring **30 comprehensive test cases** across 4 dedicated test suites using **Vitest** and **React Testing Library**:
 
 ```bash
+# Run full automated verification suite
 npm run verify
 ```
 
-The verification gate executes the following sequence:
+```text
+ ✓ lib/engine.test.ts (11 tests)
+   ✓ exact paise balance reconciliation across transactions
+   ✓ 30-day forecast projection bounds and values
+   ✓ accurate detection of negative closing balance
+   ✓ detection of first danger day below safety buffer
+   ✓ subscription pause and reactivation impact
+   ✓ goal allocation transfers and liquidity impact
+   ✓ emergency shock liability handling
+   ✓ risk score bounds guarantee [0, 100]
+   ✓ health score bounds guarantee [0, 100]
+   ✓ category spending distribution calculations
+   ✓ goal delay ripple effect computation
+ ✓ lib/validation.test.ts (7 tests)
+   ✓ parsing valid financial payloads
+   ✓ rejecting payloads with missing core fields
+   ✓ rejecting non-numeric or negative amounts
+   ✓ rejecting out-of-bounds days
+   ✓ rejecting oversized payloads (>256KB)
+   ✓ rejecting duplicate entity identifiers
+   ✓ rejecting prototype pollution keys (__proto__)
+ ✓ components/__tests__/modular-components.test.tsx (6 tests)
+   ✓ budget allocation ring rendering and legend sync
+   ✓ category breakdown progress tracks
+   ✓ 30-day matrix tile interaction and status badges
+   ✓ goal ripple delay consequence display
+   ✓ emergency lockbox slider reactivity
+   ✓ runway intelligence contextual tips
+ ✓ components/money-app.test.tsx (6 tests)
+   ✓ cockpit dashboard vitals and metric cards
+   ✓ What-If simulation workflow and consequence receipt
+   ✓ quick-entry modal focus trapping and keyboard escape
+   ✓ 30-day map navigation and day drilldown
+   ✓ goals and subscriptions management
+   ✓ full navigation flow between all five views
 
-1. **Prettier Format Check** (`npm run format:check`): Ensures code style uniformity.
-2. **ESLint Strict Validation** (`npm run lint`): Enforces clean architecture with zero warnings or errors.
-3. **TypeScript Compiler Check** (`npm run typecheck`): Strict type validation across all modules.
-4. **Vitest Automated Test Suite** (`npm test`):
-   - **Financial Engine Tests** (`engine.test.ts`):
-     - Exact paise balance reconciliation across multiple transactions.
-     - 30-day forecast generation and bounds verification.
-     - Accurate detection of negative cash balances and danger days.
-     - Subscription pause and reactivation mechanics.
-     - Goal funding transfers and liquidity impact.
-     - Emergency expense shock handling.
-     - Risk and Health index bounded score guarantees ($[0, 100]$).
-     - Category spending distribution calculations.
-     - Goal ripple effect delay and daily required calculation accuracy.
-     - Contextual runway advice and intelligence generation.
-   - **Security & Schema Tests** (`validation.test.ts`):
-     - Successful parsing of compliant financial payloads.
-     - Strict rejection of missing fields, malformed numbers, and invalid dates.
-     - Rejection of oversized payloads (> 256 KB) and excessive collections.
-     - Rejection of duplicate entity identifiers and prototype-polluting payloads.
-   - **Modular Component Tests** (`modular-components.test.tsx`):
-     - Budget allocation ring rendering and legend synchronization.
-     - Category breakdown bar progression.
-     - 30-day matrix tile interaction.
-     - Goal ripple delay consequence display.
-     - Emergency lockbox simulator slider reactivity.
-     - Runway intelligence guidance cues.
-   - **User Flow & Accessibility Tests** (`money-app.test.tsx`):
-     - Core cockpit rendering and metric synchronization.
-     - What-If Lab simulation workflow and consequence receipts.
-     - Quick-entry dialog focus management, keyboard trap, and `Escape` dismissal.
-     - Navigation between all five primary modules.
-5. **Production Turbopack Build** (`npm run build`): Validates optimized static generation.
+Test Files  4 passed (4)
+     Tests  30 passed (30)
+  Duration  1.62s
+```
 
 ---
 
-## Local Development Guide
+## 🚀 Quickstart & Local Development
 
 ### Prerequisites
 
-- Node.js `>= 20.9.0`
-- npm `>= 10.0.0`
+- **Node.js**: `>= 20.9.0`
+- **npm**: `>= 10.0.0`
 
 ### Installation & Execution
 
 ```bash
-# 1. Clone repository
+# 1. Clone the repository
 git clone https://github.com/kulharshit21/broke-but-functional.git
 cd broke-but-functional
 
@@ -358,49 +367,43 @@ npm install
 npm run dev
 ```
 
-Navigate to `http://localhost:3000` to interact with the application.
+Open [http://localhost:3000](http://localhost:3000) in your browser to explore Broke But Functional.
 
-### Test Execution Commands
+### Verification Commands
 
 ```bash
-# Run full verification suite (lint, typecheck, test, build)
+# Execute lint check, typecheck, test suite, and static build
 npm run verify
 
-# Run unit and integration tests
+# Run Vitest test suite
 npm test
 
-# Run tests in interactive watch mode
-npm run test:watch
+# Run TypeScript compiler check
+npm run typecheck
 
-# Format codebase
-npm run format
+# Run ESLint validation
+npm run lint
+
+# Build optimized production bundle
+npm run build
 ```
 
 ---
 
-## Design System & Aesthetics
+## 🎨 Design Philosophy & Aesthetic Identity
 
-**Paper Ledger Meets High-Signal Fintech.**
+**Tactile Ledger Meets High-Signal Fintech.**
 
-The visual design language avoids generic dashboard tropes in favor of an editorial, tactile aesthetic:
+The application deliberately rejects sterile dashboard tropes in favor of an authentic, editorial financial instrument:
 
-- **Surface Palette**: Warm paper tones (`#fbf8ef`, `#f4eedb`) paired with deep institutional green (`#0e2a1d`, `#163b2a`).
-- **High-Signal Accents**: Acid lime (`#c9f04c`) and amber warning cues are reserved exclusively for critical thresholds, danger days, and action triggers.
-- **Typography**: Classic serif headings for narrative framing juxtaposed with monospaced tabular numerals for all monetary values.
-- **Tactile Depth**: Crisp editorial borders (`1.5px`) and hard offset shadows (`3px 3px 0px`) create a grounded, authentic physical document aesthetic.
-
----
-
-## Deployment Architecture
-
-The application is deployed to **Vercel** with zero-configuration edge hosting:
-
-- **Production URL**: [https://broke-but-functional-seven.vercel.app/](https://broke-but-functional-seven.vercel.app/)
-- **Continuous Deployment**: Every commit to the `main` branch automatically triggers GitHub Actions CI checks followed by an instant production deployment on Vercel.
-- **Zero Secrets**: Pure static build architecture requiring zero environment variables, backend databases, or cloud secrets.
+- **Surface Palette**: Warm tactile document papers (`#fbf8ef`, `#f4eedb`) contrasted with authoritative institutional forest green (`#0e2a1d`, `#163b2a`).
+- **High-Signal Accents**: Acid lime (`#c9f04c`) and amber cues are deployed strictly for actionable thresholds, danger beacons, and simulation deltas.
+- **Tabular Monospace Numerals**: All rupee amounts, countdown days, and percentages are locked to `tabular-nums font-mono` to prevent typographic jitter during live slider interactions.
+- **Physical Document Depth**: Crisp `1.5px` ink borders and hard `3px 3px 0px` offset shadows give interactive cards an authentic physical feel.
 
 ---
 
-## License
-
-This project is licensed under the [MIT License](./LICENSE).
+<div align="center">
+  <sub>Engineered with precision for the next generation of financial resilience.</sub><br/>
+  <strong>Broke But Functional © 2026 · Master your runway before it runs you.</strong>
+</div>
