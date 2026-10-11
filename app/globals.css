@@ -2433,3 +2433,60 @@ input {
     padding: 0 12px !important;
   }
 }
+
+/* --- Risk Velocity Bar in Health Advice --- */
+.risk-velocity-bar {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+  display: grid;
+  gap: 8px;
+}
+.risk-velocity-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+}
+.risk-score-tag {
+  font: 700 10px var(--mono);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.velocity-segments {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+}
+.velocity-segments .segment {
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  font: 700 9px var(--mono);
+  opacity: 0.35;
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+.velocity-segments .segment.danger {
+  background: #f0b5ad;
+  color: #7e2018;
+}
+.velocity-segments .segment.caution {
+  background: #f4dba9;
+  color: #754510;
+}
+.velocity-segments .segment.safe {
+  background: #d7eadc;
+  color: #285e3f;
+}
+.velocity-segments .segment.active {
+  opacity: 1;
+  font-weight: 800;
+  box-shadow: 0 0 0 1.5px currentColor;
+}
