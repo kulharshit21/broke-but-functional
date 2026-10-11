@@ -142,7 +142,7 @@ lib/
 
 ## Deployment
 
-The GitHub repository is connected to Vercel. Every commit to `main` creates a production deployment after GitHub’s product checks pass. Pull requests receive preview deployments.
+The GitHub repository is connected to Vercel. Every commit to `main` triggers both GitHub’s product checks and a Vercel production deployment directly from that commit. Pull requests receive preview deployments.
 
 No environment variables are required.
 
