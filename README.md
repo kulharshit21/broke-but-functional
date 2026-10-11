@@ -4,7 +4,7 @@
 
 [![Live on Vercel](https://img.shields.io/badge/live-Vercel-171a17?style=for-the-badge&logo=vercel)](https://broke-but-functional-seven.vercel.app/)
 [![Product checks](https://img.shields.io/github/actions/workflow/status/kulharshit21/broke-but-functional/ci.yml?branch=main&style=for-the-badge&label=tests)](https://github.com/kulharshit21/broke-but-functional/actions)
-[![Next.js](https://img.shields.io/badge/Next.js-15-0e5b3a?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-16-0e5b3a?style=for-the-badge&logo=nextdotjs)](https://nextjs.org/)
 [![License: MIT](https://img.shields.io/badge/license-MIT-c9f04c?style=for-the-badge)](./LICENSE)
 
 **Broke But Functional** is a local-first financial survival companion for Gen Z users stretching ₹10,000 across 30 days. It does not wait for a bad purchase to become history. The What‑If Lab shows how a decision changes cash, safe daily spend, commitments, runway, savings, danger days, risk, and financial health—before the user commits.
@@ -15,14 +15,14 @@
 
 Every screen answers one question: **“What can I safely spend today without breaking the month?”**
 
-| What the user sees | What it actually means |
-|---|---|
-| Balance now | Cash already in the spending account |
-| Locked for bills | Future essential commitments and active subscriptions |
-| Protected savings | Money deliberately kept out of casual spending |
-| Safe to spend today | The share left after bills, buffer, savings and shock reserve |
-| Danger day | The first projected day below the minimum cash buffer |
-| Financial risk | Explainable pressure from the forecast—not a fake AI probability |
+| What the user sees  | What it actually means                                           |
+| ------------------- | ---------------------------------------------------------------- |
+| Balance now         | Cash already in the spending account                             |
+| Locked for bills    | Future essential commitments and active subscriptions            |
+| Protected savings   | Money deliberately kept out of casual spending                   |
+| Safe to spend today | The share left after bills, buffer, savings and shock reserve    |
+| Danger day          | The first projected day below the minimum cash buffer            |
+| Financial risk      | Explainable pressure from the forecast—not a fake AI probability |
 
 ## The five connected experiences
 
@@ -110,11 +110,17 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Verify
 
 ```bash
-npm test
-npm run build
+npm run verify
 ```
 
-Vitest covers balance reconciliation, forecast length, negative cash, subscription pauses, emergencies, income improvements, shock scenarios, and score bounds. GitHub Actions runs tests and the production build on every push and pull request.
+The release gate runs formatting, strict type checks, 21 unit and interaction tests, and the production build. It covers balance reconciliation, forecast length, negative cash, subscription pauses, emergencies, income improvements, shock scenarios, score bounds, strict JSON import validation, keyboard-dismissable dialogs, navigation, and the mobile shock drill. GitHub Actions runs the same gate on every push and pull request.
+
+## Trust, accessibility, and performance
+
+- Browser-local data crosses a strict schema boundary before it can enter the app: file size, numeric bounds, dates, IDs, enums, collection sizes, and duplicate IDs are all rejected.
+- Decision and quick-entry dialogs trap focus, restore it after close, and close with `Escape`. The UI also provides semantic navigation, a skip link, visible focus, ARIA live feedback, and accessible chart descriptions.
+- Vercel headers ship a restrictive CSP, framing protection, MIME sniffing protection, a referrer policy, a permissions policy, and cross-origin isolation. `npm audit` is clean at the release gate.
+- The app uses custom SVGs and browser-native storage—no analytics SDK, remote font, chart package, image payload, server, or paid API is required.
 
 ## Stack and structure
 
@@ -125,17 +131,20 @@ app/
   page.tsx               product entry point
 components/
   money-app.tsx          five experiences and interaction state
+  money-app.test.tsx     user-facing interaction coverage
 lib/
   types.ts               financial domain model
   seed.ts                Day-8 demo and scenario presets
   engine.ts              pure forecast, scoring and simulation engine
   engine.test.ts         deterministic money-engine tests
+  validation.ts          local-data trust boundary
+  validation.test.ts     hostile-import coverage
 .github/workflows/
-  ci.yml                 test + build gate
+  ci.yml                 release gate
 ```
 
-- Next.js 15, React 19 and strict TypeScript
-- Tailwind’s build pipeline with a completely custom design system
+- Next.js 16, React 19 and strict TypeScript
+- Hand-authored CSS design system with no framework runtime
 - Hand-built accessible SVG forecast charts—no chart library
 - Versioned browser storage under `bbf-state-v1`
 - Static export with no backend, secret, account or paid API

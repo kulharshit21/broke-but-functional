@@ -4,3 +4,4 @@ out
 coverage
 .vercel
 *.log
+*.tsbuildinfo
